@@ -7,6 +7,7 @@ public class GridSettings : ScriptableObject
 {
     public int WorldWidth;
     public int WorldHeight;
+    public float offsetMultiplier;
 
     public Hex hexPrefab;
 }

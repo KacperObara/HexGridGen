@@ -2,53 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HexGrid : MonoBehaviour
+namespace HexGen
 {
-    public GridSettings settings;
-
-    private Hex[,] hexes;
-
-    private void Awake()
+    public class HexGrid : MonoBehaviour
     {
-        hexes = new Hex[settings.WorldWidth, settings.WorldHeight];
-        GenerateGrid();
-    }
+        public GridSettings settings;
 
-    private void GenerateGrid()
-    {
-        for(int x = 0; x < settings.WorldWidth; ++x)
+        private Hex[] hexes;
+
+        private MeshGen meshGen;
+
+        private void Awake()
         {
-            for (int z = 0; z < settings.WorldHeight; ++z)
+            hexes = new Hex[settings.WorldWidth * settings.WorldHeight];
+            GenerateGrid();
+        }
+
+        private void Start()
+        {
+            meshGen = GetComponent<MeshGen>();
+            meshGen.Triangulate(hexes);
+        }
+
+        private void GenerateGrid()
+        {
+            int i = 0;
+            for(int x = 0; x < settings.WorldWidth; ++x)
             {
-                InstantiateHex(x, z);
+                for (int z = 0; z < settings.WorldHeight; ++z)
+                {
+                    InstantiateHex(x, z, i++);
+                }
             }
         }
-    }
 
-    private void InstantiateHex(int x, int z)
-    {
-        //Vector3 pos = Vector3.zero;
-        //pos.x = x * Hex.OuterRadius;
-        //pos.z = z * Hex.OuterRadius;
+        private void InstantiateHex(int x, int z, int i)
+        {
+            hexes[i] = Instantiate(settings.hexPrefab, CalcPos(x, z), Quaternion.identity);
+            hexes[i].transform.parent = transform;
+            //hexes[i].gameObject.SetActive(false);
+        }
 
-        hexes[x, z] = Instantiate(settings.hexPrefab, CalcPos(x, z), Quaternion.identity);
-        hexes[x, z].transform.parent = transform;
-    }
+        private Vector3 CalcPos(int x, int z)
+        {
+            Vector3 pos = Vector3.zero;
+            pos.x = x * Hex.InnerRadius * 2;
+            pos.z = z * Hex.InnerRadius * Mathf.Sqrt(3);
 
-    private Vector3 CalcPos(int x, int z)
-    {
-        Vector3 pos = Vector3.zero;
-        pos.x = x * Hex.OuterRadius;
-        pos.z = z * Hex.OuterRadius;
-        pos.x = (x + z * 0.5f - z / 2) * (Hex.InnerRadius * 2f);
-        return pos;
-        /*
-        float offset = 0f;
+            if (z % 2 != 0)
+                pos.x += Hex.InnerRadius;
 
-        if (z % 2 != 0)
-            offset = Hex.InnerRadius / 2;
+            pos.x *= settings.offsetMultiplier;
+            pos.z *= settings.offsetMultiplier;
 
-        return new Vector3(x * Hex.InnerRadius + offset, 0, z * Hex.OuterRadius);
-        */
+            return pos;
+        }
     }
 }
+
