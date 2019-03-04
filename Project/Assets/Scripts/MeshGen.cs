@@ -35,7 +35,7 @@ namespace HexGen
 
             for (int i = 0; i < cells.Length; i++)
             {
-                CreateHexagon(cells[i].transform.position);
+                CreateHexagon(cells[i].WorldPosition);
             }
 
             mesh.vertices = vertices.ToArray();

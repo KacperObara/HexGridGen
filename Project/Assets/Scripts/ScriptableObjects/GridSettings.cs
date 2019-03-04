@@ -9,5 +9,6 @@ public class GridSettings : ScriptableObject
     public int WorldHeight;
     public float offsetMultiplier;
 
-    public Hex hexPrefab;
+    //public Hex hexPrefab;
+    public Hex[] Hexes;
 }

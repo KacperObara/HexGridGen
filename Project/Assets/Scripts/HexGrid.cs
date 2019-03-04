@@ -6,31 +6,28 @@ namespace HexGen
 {
     public class HexGrid : MonoBehaviour
     {
-        public GridSettings settings;
-
-        [SerializeField]
-        private GridInfo grid;
+        public GridSettings Grid;
 
         private MeshGen meshGen;
 
         private void Awake()
         {
-            grid.Hexes = new Hex[settings.WorldWidth * settings.WorldHeight];
+            Grid.Hexes = new Hex[Grid.WorldWidth * Grid.WorldHeight];
             GenerateGrid();
         }
 
         private void Start()
         {
             meshGen = GetComponent<MeshGen>();
-            meshGen.Triangulate(grid.Hexes);
+            meshGen.Triangulate(Grid.Hexes);
         }
 
         private void GenerateGrid()
         {
             int i = 0;
-            for(int x = 0; x < settings.WorldWidth; ++x)
+            for(int x = 0; x < Grid.WorldWidth; ++x)
             {
-                for (int z = 0; z < settings.WorldHeight; ++z)
+                for (int z = 0; z < Grid.WorldHeight; ++z)
                 {
                     InstantiateHex(x, z, i++);
                 }
@@ -39,11 +36,10 @@ namespace HexGen
 
         private void InstantiateHex(int x, int z, int i)
         {
-            grid.Hexes[i] = Instantiate(settings.hexPrefab, CalcPos(x, z), Quaternion.identity);
-            grid.Hexes[i].transform.parent = transform;
+            Grid.Hexes[i] = new Hex(new Vector2Int(x, z), CalcHexPos(x, z));
         }
 
-        private Vector3 CalcPos(int x, int z)
+        private Vector3 CalcHexPos(int x, int z)
         {
             Vector3 pos = Vector3.zero;
             pos.x = x * Hex.InnerRadius * 2;
@@ -52,8 +48,8 @@ namespace HexGen
             if (z % 2 != 0)
                 pos.x += Hex.InnerRadius;
 
-            pos.x *= settings.offsetMultiplier;
-            pos.z *= settings.offsetMultiplier;
+            pos.x *= Grid.offsetMultiplier;
+            pos.z *= Grid.offsetMultiplier;
 
             return pos;
         }

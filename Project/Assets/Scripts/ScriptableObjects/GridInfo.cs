@@ -7,6 +7,6 @@ namespace HexGen
     [CreateAssetMenu]
     public class GridInfo : ScriptableObject
     {
-        public Hex[] Hexes;
+        //public Hex[] Hexes;
     }
 }
