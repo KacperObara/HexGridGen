@@ -8,6 +8,7 @@ namespace HexGen
     public class MeshGen : MonoBehaviour
     {
         Mesh mesh;
+        MeshCollider meshCollider;
         List<Vector3> vertices;
         List<int> triangles;
 
@@ -18,38 +19,40 @@ namespace HexGen
 
             mesh = GetComponent<MeshFilter>().mesh = new Mesh();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32; // allows for meshes bigger than ~65000 vertices
+
+            meshCollider = gameObject.AddComponent<MeshCollider>();
         }
 
+        /// <summary>
+        /// Clear mesh, generate hexagons and assign them to mesh
+        /// </summary>
+        /// <param name="cells"></param>
         public void Triangulate(Hex[] cells)
         {
             mesh.Clear();
             vertices.Clear();
             triangles.Clear();
+
             for (int i = 0; i < cells.Length; i++)
             {
-                Triangulate(cells[i]);
+                CreateHexagon(cells[i].transform.position);
             }
+
             mesh.vertices = vertices.ToArray();
-            Debug.Log(mesh.vertexCount);
             mesh.triangles = triangles.ToArray();
             mesh.RecalculateNormals();
-            
-        }
-        Vector3 center;
-        private void Triangulate(Hex cell)
-        {
-            center = cell.transform.localPosition;
-            AddAllTriangles();
-            //for (int i = 0; i < 6; ++i)
-            //{
-            //    AddTriangle(
-            //        center,
-            //        center + Hex.vertices[i],
-            //        center + Hex.vertices[i + 1]
-            //    );
-            //}
+
+            meshCollider.sharedMesh = mesh;
         }
 
+        /// <summary>
+        /// Adds single triangle using specified vertices positions
+        /// Not used currently, because of CreateHexagon function, but useful, if you
+        /// want every triangle to have unique vertices
+        /// </summary>
+        /// <param name="v1">vertex nr 1</param>
+        /// <param name="v2">vertex nr 2</param>
+        /// <param name="v3">vertex nr 3</param>
         private void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
         {
             int vertexIndex = vertices.Count;
@@ -62,9 +65,10 @@ namespace HexGen
         }
 
         /// <summary>
-        /// 
+        /// Adds all vertices and triangles required for single hexagon shape (7 vertices, 6 triangles)
         /// </summary>
-        private void AddAllTriangles()
+        /// <param name="center">Center of the hexagon</param>
+        private void CreateHexagon(Vector3 center)
         {
             int vertexIndex = vertices.Count;
 

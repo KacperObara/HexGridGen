@@ -8,20 +8,21 @@ namespace HexGen
     {
         public GridSettings settings;
 
-        private Hex[] hexes;
+        [SerializeField]
+        private GridInfo grid;
 
         private MeshGen meshGen;
 
         private void Awake()
         {
-            hexes = new Hex[settings.WorldWidth * settings.WorldHeight];
+            grid.Hexes = new Hex[settings.WorldWidth * settings.WorldHeight];
             GenerateGrid();
         }
 
         private void Start()
         {
             meshGen = GetComponent<MeshGen>();
-            meshGen.Triangulate(hexes);
+            meshGen.Triangulate(grid.Hexes);
         }
 
         private void GenerateGrid()
@@ -38,9 +39,8 @@ namespace HexGen
 
         private void InstantiateHex(int x, int z, int i)
         {
-            hexes[i] = Instantiate(settings.hexPrefab, CalcPos(x, z), Quaternion.identity);
-            hexes[i].transform.parent = transform;
-            //hexes[i].gameObject.SetActive(false);
+            grid.Hexes[i] = Instantiate(settings.hexPrefab, CalcPos(x, z), Quaternion.identity);
+            grid.Hexes[i].transform.parent = transform;
         }
 
         private Vector3 CalcPos(int x, int z)

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b85924f540dcf24f99c9e5a0bb5da44, type: 3}
   m_Name: WorldSettings
   m_EditorClassIdentifier: 
-  WorldWidth: 1
-  WorldHeight: 1
+  WorldWidth: 100
+  WorldHeight: 100
   offsetMultiplier: 1.1
   hexPrefab: {fileID: 8766848294815988462, guid: 8ede0caae2e42d14caa30c5e3e44312a,
     type: 3}
