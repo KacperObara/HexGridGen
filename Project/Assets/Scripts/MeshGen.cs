@@ -83,7 +83,7 @@ namespace HexGen
                 triangles.Add(vertexIndex);
                 triangles.Add(vertexIndex + i + 1);
 
-                if (i+2 <= 6)
+                if (i + 2 <= 6)
                     triangles.Add(vertexIndex + i + 2);
                 else
                     triangles.Add(vertexIndex + 1);
