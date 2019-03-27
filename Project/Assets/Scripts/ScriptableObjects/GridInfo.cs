@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HexGen
+[CreateAssetMenu]
+public class GridInfo : ScriptableObject
 {
-    [CreateAssetMenu]
-    public class GridInfo : ScriptableObject
-    {
-        //public Hex[] Hexes;
-    }
+    public int WorldWidth;
+    public int WorldHeight;
+    public float offsetMultiplier;
+
+    public Hex[] Hexes;
 }

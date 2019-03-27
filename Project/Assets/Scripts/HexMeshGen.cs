@@ -5,7 +5,7 @@ using UnityEngine;
 namespace HexGen
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-    public class MeshGen : MonoBehaviour
+    public class HexMeshGen : MonoBehaviour
     {
         Mesh mesh;
         MeshCollider meshCollider;
@@ -23,26 +23,36 @@ namespace HexGen
             meshCollider = gameObject.AddComponent<MeshCollider>();
         }
 
+        public void ClearMesh()
+        {
+            mesh.Clear();
+            vertices.Clear();
+            triangles.Clear();
+        }
+
+        public void ApplyMesh()
+        {
+            mesh.vertices = vertices.ToArray();
+            mesh.triangles = triangles.ToArray();
+            mesh.RecalculateNormals();
+
+            meshCollider.sharedMesh = mesh;
+        }
+
         /// <summary>
         /// Clear mesh, generate hexagons and assign them to mesh
         /// </summary>
         /// <param name="cells"></param>
         public void Triangulate(Hex[] cells)
         {
-            mesh.Clear();
-            vertices.Clear();
-            triangles.Clear();
+            ClearMesh();
 
-            for (int i = 0; i < cells.Length; i++)
+            foreach (Hex cell in cells)
             {
-                CreateHexagon(cells[i].WorldPosition);
+                CreateHexagon(cell.WorldPosition);
             }
 
-            mesh.vertices = vertices.ToArray();
-            mesh.triangles = triangles.ToArray();
-            mesh.RecalculateNormals();
-
-            meshCollider.sharedMesh = mesh;
+            ApplyMesh();
         }
 
         /// <summary>
@@ -75,7 +85,7 @@ namespace HexGen
             vertices.Add(center);
             for (int i = 0; i < 6; ++i)
             {
-                vertices.Add(center + Hex.vertices[i]);
+                vertices.Add(center + HexInfo.vertices[i]);
             }
 
             for (int i = 0; i < 6; ++i)

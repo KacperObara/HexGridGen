@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ExtensionMethods;
 
 namespace HexGen
 {
     public class HexGrid : MonoBehaviour
     {
-        public GridSettings Grid;
+        public GridInfo Grid;
 
-        private MeshGen meshGen;
+        private HexMeshGen meshGen;
 
         private void Awake()
         {
@@ -18,7 +19,7 @@ namespace HexGen
 
         private void Start()
         {
-            meshGen = GetComponent<MeshGen>();
+            meshGen = GetComponent<HexMeshGen>();
             meshGen.Triangulate(Grid.Hexes);
         }
 
@@ -42,11 +43,11 @@ namespace HexGen
         private Vector3 CalcHexPos(int x, int z)
         {
             Vector3 pos = Vector3.zero;
-            pos.x = x * Hex.InnerRadius * 2;
-            pos.z = z * Hex.InnerRadius * Mathf.Sqrt(3);
+            pos.x = x * HexInfo.InnerRadius * 2;
+            pos.z = z * HexInfo.InnerRadius * Mathf.Sqrt(3);
 
-            if (z % 2 != 0)
-                pos.x += Hex.InnerRadius;
+            if (z.IsEven())
+                pos.x += HexInfo.InnerRadius;
 
             pos.x *= Grid.offsetMultiplier;
             pos.z *= Grid.offsetMultiplier;

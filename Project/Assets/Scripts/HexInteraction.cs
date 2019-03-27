@@ -5,36 +5,13 @@ using UnityEngine;
 
 public class HexInteraction : MonoBehaviour
 {
-    public static Hex SelectHexagon(Vector3 mousePosition, GridSettings grid)
+    public static Hex SelectHexagon(Vector3 mousePosition, GridInfo grid)
     {
-        //int z = -1;
-        //z = Mathf.RoundToInt(mousePosition.z / (Hex.OuterRadius * 2));
-        //int x = -1;
-        //x = Mathf.RoundToInt(mousePosition.x / (Hex.InnerRadius * 2));
-
-        //if (z % 2 != 0)
-        //{
-        //    x = Mathf.RoundToInt((mousePosition.x - 0.5f * Hex.InnerRadius) / (Hex.InnerRadius * 2));
-        //}
-        //else
-        //{
-        //    x = Mathf.RoundToInt(mousePosition.x / (Hex.InnerRadius * 2f));
-        //}
-
-        //float X = mousePosition.x / (Hex.InnerRadius * 2);
-        //float f = mousePosition.z / (Hex.OuterRadius * 3f);
-        //X -= f;
-
-        float q = (Mathf.Sqrt(3f) / 3f * mousePosition.x - 1f / 3f * mousePosition.z) / Hex.OuterRadius;
-        float r = (2f / 3f * mousePosition.z) / Hex.OuterRadius;
+        float q = (Mathf.Sqrt(3f) / 3f * mousePosition.x - 1f / 3f * mousePosition.z) / HexInfo.OuterRadius;
+        float r = (                                        2f / 3f * mousePosition.z) / HexInfo.OuterRadius;
         Axial a = Hex_round(new Axial(q, r));
         Debug.Log(a.q + " " + a.r);
 
-        //Debug.Log(Mathf.Lerp(mousePosition.x, mousePosition.x % Hex.InnerRadius, 0.5f));
-
-        //Debug.Log("Touched: " + q + "  " + r);
-        //Debug.Log(Mathf.RoundToInt(q) + "  " + Mathf.RoundToInt(r));
-        //Debug.Log("Mouse: " + mousePosition.x + " " + mousePosition.y + " " + mousePosition.z);
         return null;
     }
 

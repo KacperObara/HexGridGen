@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: Change when input system updates (Unity 2019.2+)
 public class PlayerInput : MonoBehaviour
 {
     Hex hex;
