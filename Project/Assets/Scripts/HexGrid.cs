@@ -46,7 +46,7 @@ namespace HexGen
             pos.x = x * HexInfo.InnerRadius * 2;
             pos.z = z * HexInfo.InnerRadius * Mathf.Sqrt(3);
 
-            if (z.IsEven())
+            if (z.IsEven() == false)
                 pos.x += HexInfo.InnerRadius;
 
             pos.x *= Grid.offsetMultiplier;
