@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeCoordinates : MonoBehaviour
+public class CubeCoordinates
 {
-    public float x;
-    public float y;
-    public float z;
+    public int x;
+    public int y;
+    public int z;
 
-    public CubeCoordinates(float x, float y, float z)
+    public CubeCoordinates(int x, int y, int z)
     {
         this.x = x;
         this.y = y;

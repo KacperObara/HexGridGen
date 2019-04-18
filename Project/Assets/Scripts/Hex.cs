@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Hex
 {
-    private Vector2Int localPosition;
+    public AxialCoordinates LocalPosition { get; private set; }
     public Vector3 WorldPosition { get; private set; }
 
-    public Hex(Vector2Int localPosition, Vector3 worldPosition)
+    public Hex(AxialCoordinates localPosition, Vector3 worldPosition)
     {
-        this.localPosition = localPosition;
+        this.LocalPosition = localPosition;
         this.WorldPosition = worldPosition;
     }
 }

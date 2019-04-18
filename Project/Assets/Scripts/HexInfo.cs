@@ -17,41 +17,46 @@ namespace HexGen
         new Vector3(0f, 0f, OuterRadius)
         };
 
-        /// <summary>
-        /// Rounds pixel coordinates to according hex, for example clicking and selecting hex with mouse.
-        /// </summary>
-        /// <param name="axial"></param>
-        /// <returns></returns>
-        public static AxialCoordinates RoundPixelToHex(AxialCoordinates axial)
+        public static AxialCoordinates OffsetToAxial(int x, int z)
         {
-            return CubeToAxial(CubeRound(AxialToCube(axial)));         /// For ease of implementation, method converts axial coordinates to cube, 
-                                                                       /// then rounds values and converts back to axial.
+            var qx = x - (z - (z & 1)) / 2;
+            var qz = z;
+            Debug.Log("Pozycje: " + qx + " " + qz);
+            return new AxialCoordinates(qx, qz);
         }
 
         public static AxialCoordinates CubeToAxial(CubeCoordinates cube)
         {
-            var q = cube.x;
-            var r = cube.z;
+            int q = cube.x;
+            int r = cube.z;
             return new AxialCoordinates(q, r);
         }
 
         public static CubeCoordinates AxialToCube(AxialCoordinates axial)
         {
-            var x = axial.q;
-            var y = axial.r;
-            var z = -x - y;
+            int x = axial.q;
+            int y = axial.r;
+            int z = -x - y;
             return new CubeCoordinates(x, y, z);
         }
 
-        public static CubeCoordinates CubeRound(CubeCoordinates cube)
+        public static AxialCoordinates RoundPixelToHex(float q, float r)
         {
-            var rx = Mathf.Round(cube.x);
-            var ry = Mathf.Round(cube.y);
-            var rz = Mathf.Round(cube.z);
+            float x = q;
+            float y = r;
+            float z = -x - y;
+            return CubeToAxial(RoundPixelToHex(x, y, z));
+        }
 
-            var x_diff = Mathf.Abs(rx - cube.x);
-            var y_diff = Mathf.Abs(ry - cube.y);
-            var z_diff = Mathf.Abs(rz - cube.z);
+        public static CubeCoordinates RoundPixelToHex(float x, float y, float z)
+        {
+            int rx = (int)Mathf.Round(x);
+            int ry = (int)Mathf.Round(y);
+            int rz = (int)Mathf.Round(z);
+
+            var x_diff = Mathf.Abs(rx - x);
+            var y_diff = Mathf.Abs(ry - y);
+            var z_diff = Mathf.Abs(rz - z);
 
             if (x_diff > y_diff && x_diff > z_diff)
                 rx = -ry - rz;

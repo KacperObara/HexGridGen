@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AxialCoordinates : MonoBehaviour
+public class AxialCoordinates
 {
-    public float q;
-    public float r;
+    public int q;
+    public int r;
 
-    public AxialCoordinates(float q, float r)
+    public AxialCoordinates(int q, int r)
     {
         this.q = q;
         this.r = r;

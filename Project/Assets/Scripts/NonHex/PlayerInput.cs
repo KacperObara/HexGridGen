@@ -10,7 +10,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             HandleInput();
         }
@@ -23,9 +23,9 @@ public class PlayerInput : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.GetComponent<HexGrid>())
+            if (hit.transform.GetComponent<GridGenerator>())
             {
-                hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<HexGrid>().Grid);
+                hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<GridGenerator>().Grid);
             }
         }
     }

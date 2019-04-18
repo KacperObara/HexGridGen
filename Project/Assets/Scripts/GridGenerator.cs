@@ -5,9 +5,9 @@ using ExtensionMethods;
 
 namespace HexGen
 {
-    public class HexGrid : MonoBehaviour
+    public class GridGenerator : MonoBehaviour
     {
-        public GridInfo Grid;
+        public HexGrid Grid;
 
         private HexMeshGen meshGen;
 
@@ -37,7 +37,7 @@ namespace HexGen
 
         private void InstantiateHex(int x, int z, int i)
         {
-            Grid.Hexes[i] = new Hex(new Vector2Int(x, z), CalcHexPos(x, z));
+            Grid.Hexes[i] = new Hex(HexInfo.OffsetToAxial(x, z), CalcHexPos(x, z));
         }
 
         private Vector3 CalcHexPos(int x, int z)
