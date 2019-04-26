@@ -26,6 +26,8 @@ public class PlayerInput : MonoBehaviour
             if (hit.transform.GetComponent<GridGenerator>())
             {
                 hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<GridGenerator>().Grid);
+                //Debug.Assert(hex != null);
+                //Instantiate(tmp, hex.WorldPosition, Quaternion.identity);
             }
         }
     }

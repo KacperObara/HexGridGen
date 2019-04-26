@@ -11,14 +11,11 @@ namespace HexGen
 
         private HexMeshGen meshGen;
 
-        private void Awake()
+        private void Start()
         {
             Grid.Hexes = new Hex[Grid.WorldWidth * Grid.WorldHeight];
             GenerateGrid();
-        }
 
-        private void Start()
-        {
             meshGen = GetComponent<HexMeshGen>();
             meshGen.Triangulate(Grid.Hexes);
         }
@@ -30,12 +27,12 @@ namespace HexGen
             {
                 for (int z = 0; z < Grid.WorldHeight; ++z)
                 {
-                    InstantiateHex(x, z, i++);
+                    CreateHex(x, z, i++);
                 }
             }
         }
 
-        private void InstantiateHex(int x, int z, int i)
+        private void CreateHex(int x, int z, int i)
         {
             Grid.Hexes[i] = new Hex(HexInfo.OffsetToAxial(x, z), CalcHexPos(x, z));
         }

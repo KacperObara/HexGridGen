@@ -14,6 +14,6 @@ public class HexInteraction : MonoBehaviour
         AxialCoordinates b = grid.GetHex(a.q, a.r).LocalPosition;
 
 
-        return null;
+        return grid.GetHex(a.q, a.r);
     }
 }
