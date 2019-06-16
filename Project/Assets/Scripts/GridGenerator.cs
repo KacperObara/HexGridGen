@@ -23,9 +23,9 @@ namespace HexGen
         private void GenerateGrid()
         {
             int i = 0;
-            for(int x = 0; x < Grid.WorldWidth; ++x)
+            for (int z = 0; z < Grid.WorldHeight; ++z)
             {
-                for (int z = 0; z < Grid.WorldHeight; ++z)
+                for (int x = 0; x < Grid.WorldWidth; ++x)
                 {
                     CreateHex(x, z, i++);
                 }
@@ -35,6 +35,34 @@ namespace HexGen
         private void CreateHex(int x, int z, int i)
         {
             Grid.Hexes[i] = new Hex(HexInfo.OffsetToAxial(x, z), CalcHexPos(x, z));
+            SetNeighbors(x, z, i);
+        }
+
+        private void SetNeighbors(int x, int z, int i)
+        {
+            if (x > 0)
+            {
+                Grid.Hexes[i].SetNeighbor(HexDirection.W, Grid.Hexes[i - 1]);
+            }
+            if (z > 0)
+            {
+                if (z.IsEven() == true)
+                {
+                    Grid.Hexes[i].SetNeighbor(HexDirection.SE, Grid.Hexes[i - Grid.WorldWidth]);
+                    if (x > 0)
+                    {
+                        Grid.Hexes[i].SetNeighbor(HexDirection.SW, Grid.Hexes[i - Grid.WorldWidth - 1]);
+                    }
+                }
+                else
+                {
+                    Grid.Hexes[i].SetNeighbor(HexDirection.SW, Grid.Hexes[i - Grid.WorldWidth]);
+                    if (x < Grid.WorldWidth - 1)
+                    {
+                        Grid.Hexes[i].SetNeighbor(HexDirection.SE, Grid.Hexes[i - Grid.WorldWidth + 1]);
+                    }
+                }
+            }
         }
 
         private Vector3 CalcHexPos(int x, int z)
@@ -48,6 +76,8 @@ namespace HexGen
 
             pos.x *= Grid.offsetMultiplier;
             pos.z *= Grid.offsetMultiplier;
+
+            //pos.y = Random.Range(0, 3) * 5;///
 
             return pos;
         }

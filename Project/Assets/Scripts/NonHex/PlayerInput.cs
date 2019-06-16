@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     Hex hex;
-
+    //public GameObject tmp;
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -27,7 +27,13 @@ public class PlayerInput : MonoBehaviour
             {
                 hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<GridGenerator>().Grid);
                 //Debug.Assert(hex != null);
-                //Instantiate(tmp, hex.WorldPosition, Quaternion.identity);
+                //for (int i = 0; i < 6; ++i)
+                //{
+                //    if (hex.GetNeighbor((HexDirection)i) != null)
+                //    {
+                //        Instantiate(tmp, hex.GetNeighbor((HexDirection)i).WorldPosition, Quaternion.identity);
+                //    }
+                //}
             }
         }
     }

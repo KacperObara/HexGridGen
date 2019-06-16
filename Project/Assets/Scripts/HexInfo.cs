@@ -21,7 +21,7 @@ namespace HexGen
         {
             var qx = x - (z - (z & 1)) / 2;
             var qz = z;
-            Debug.Log("Pozycje: " + qx + " " + qz);
+
             return new AxialCoordinates(qx, qz);
         }
 

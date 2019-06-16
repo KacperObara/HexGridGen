@@ -8,6 +8,11 @@ public class HexGrid : ScriptableObject
     public int WorldHeight;
     public float offsetMultiplier;
 
+    public int CellMaxElevation;
+    public float CellElevationStep;
+
+    public int GridMinHeight;
+
     public Hex[] Hexes;
 
     public Hex GetHex(int q, int r)
@@ -17,4 +22,6 @@ public class HexGrid : ScriptableObject
         Debug.Assert(index >= 0);
         return Hexes[index];
     }
+
+
 }

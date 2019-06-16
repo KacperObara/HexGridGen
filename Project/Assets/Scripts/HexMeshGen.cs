@@ -13,7 +13,9 @@ namespace HexGen
         List<int> triangles;
         List<Color32> appliedColors; //Color32 is more performant
 
-        public List<Color32> Colors; 
+        public List<Color32> Colors;
+
+        public HexGrid hexGrid;
 
         private void Awake()
         {

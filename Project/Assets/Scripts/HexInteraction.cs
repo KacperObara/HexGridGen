@@ -10,7 +10,7 @@ public class HexInteraction : MonoBehaviour
         float q = (Mathf.Sqrt(3f) / 3f * mousePosition.x - 1f / 3f * mousePosition.z) / HexInfo.OuterRadius;
         float r = (                                        2f / 3f * mousePosition.z) / HexInfo.OuterRadius;
         AxialCoordinates a = HexInfo.RoundPixelToHex(q, -q - r);
-        Debug.Log("Pozycja obliczona: " + a.q + " " + a.r);
+        //Debug.Log("Pozycja obliczona: " + a.q + " " + a.r);
         AxialCoordinates b = grid.GetHex(a.q, a.r).LocalPosition;
 
 

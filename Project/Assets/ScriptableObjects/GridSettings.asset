@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b85924f540dcf24f99c9e5a0bb5da44, type: 3}
   m_Name: GridSettings
   m_EditorClassIdentifier: 
-  WorldWidth: 5
-  WorldHeight: 5
+  WorldWidth: 10
+  WorldHeight: 10
   offsetMultiplier: 1
+  CellMaxElevation: 0
+  CellElevationStep: 0
+  GridMinHeight: 0

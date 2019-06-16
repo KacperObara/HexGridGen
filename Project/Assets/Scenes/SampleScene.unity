@@ -221,6 +221,7 @@ MonoBehaviour:
     rgba: 16725768
   - serializedVersion: 2
     rgba: 2113816
+  hexGrid: {fileID: 11400000, guid: cb232e8d42a8f234394273618ed1f7c0, type: 2}
 --- !u!1 &511766662
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd492e34b3dcaa4ca56ec0ed533d8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tmp: {fileID: 0}
 --- !u!4 &763656350
 Transform:
   m_ObjectHideFlags: 0
