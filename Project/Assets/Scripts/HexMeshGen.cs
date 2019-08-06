@@ -57,7 +57,15 @@ namespace HexGen
 
             foreach (Hex cell in cells)
             {
+                int offsetX = Random.Range(0, 999999);
+                int offsetY = Random.Range(0, 999999);
+
+                float scale = 0.01f;
                 int tmp = Random.Range(0, 2);
+                if (Mathf.PerlinNoise(cell.LocalPosition.q * scale + offsetX, cell.LocalPosition.r * scale + offsetY) > 0.5f)
+                    tmp = 0;
+                else
+                    tmp = 1;
                 CreateHexagon(cell.WorldPosition, Colors[tmp]);
             }
 
@@ -93,18 +101,18 @@ namespace HexGen
 
             vertices.Add(center);
             appliedColors.Add(color);
-            for (int i = 0; i < 6; ++i)
+            for (int i = 0; i < HexInfo.HexVerticesCount; ++i)
             {
                 vertices.Add(center + HexInfo.vertices[i]);
                 appliedColors.Add(color);
             }
 
-            for (int i = 0; i < 6; ++i)
+            for (int i = 0; i < HexInfo.HexVerticesCount; ++i)
             {
                 triangles.Add(vertexIndex);
                 triangles.Add(vertexIndex + i + 1);
 
-                if (i + 2 <= 6)
+                if (i + 2 <= HexInfo.HexVerticesCount)
                     triangles.Add(vertexIndex + i + 2);
                 else
                     triangles.Add(vertexIndex + 1);
