@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf8a02e01135f1458283c54878f7100, type: 3}
+  m_Name: GenerationSettings
+  m_EditorClassIdentifier: 
+  scale: 20.2
+  octaves: 4
+  persistance: 0.5
+  lacunarity: 1.87
+  Colors:
+  - Name: Water
+    Height: 0.4
+    Color: {r: 0.1745283, g: 0.6560861, b: 1, a: 0}
+  - Name: Sand
+    Height: 0.5
+    Color: {r: 0.6698113, g: 0.6079101, b: 0.2432805, a: 0}
+  - Name: Land
+    Height: 1
+    Color: {r: 0.08775366, g: 0.6415094, b: 0.09435521, a: 0}

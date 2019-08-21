@@ -8,10 +8,13 @@ public class HexGrid : ScriptableObject
     public int WorldHeight;
     public float offsetMultiplier;
 
-    public int CellMaxElevation;
-    public float CellElevationStep;
+    //public int CellMaxElevation;
+    //public float CellElevationStep;
 
-    public int GridMinHeight;
+    //public int GridMinHeight;
+
+    public float[,] HeightMap;
+    public Color[,] ColorMap;
 
     public Hex[] Hexes;
 

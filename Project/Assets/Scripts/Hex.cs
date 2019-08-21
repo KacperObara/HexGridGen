@@ -7,13 +7,16 @@ public class Hex
     public AxialCoordinates LocalPosition { get; private set; }
     public Vector3 WorldPosition { get; private set; }
 
-    public Hex(AxialCoordinates localPosition, Vector3 worldPosition)
+    public Vector2Int TMPNormal;
+
+    public Hex(AxialCoordinates localPosition, Vector3 worldPosition, Vector2Int TMPNormal)
     {
         this.LocalPosition = localPosition;
         this.WorldPosition = worldPosition;
+        this.TMPNormal = TMPNormal;
     }
 
-    int Elevation { get; set; }
+    //int Elevation { get; set; }
 
     Hex[] neighbors = new Hex[6];
 

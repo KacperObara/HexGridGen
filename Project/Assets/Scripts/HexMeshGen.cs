@@ -13,11 +13,23 @@ namespace HexGen
         List<int> triangles;
         List<Color32> appliedColors; //Color32 is more performant
 
-        public List<Color32> Colors;
+        //public List<Color32> Colors;
 
         public HexGrid hexGrid;
 
         private void Awake()
+        {
+            //vertices = new List<Vector3>();
+            //triangles = new List<int>();
+            //appliedColors = new List<Color32>();
+
+            //mesh = GetComponent<MeshFilter>().mesh = new Mesh();
+            //mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32; // allows for meshes bigger than ~65000 vertices
+
+            //meshCollider = gameObject.AddComponent<MeshCollider>();
+        }
+
+        public void Initialize()
         {
             vertices = new List<Vector3>();
             triangles = new List<int>();
@@ -26,7 +38,13 @@ namespace HexGen
             mesh = GetComponent<MeshFilter>().mesh = new Mesh();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32; // allows for meshes bigger than ~65000 vertices
 
-            meshCollider = gameObject.AddComponent<MeshCollider>();
+            if (meshCollider == null)
+            {
+                meshCollider = gameObject.AddComponent<MeshCollider>();
+            }
+
+            PerlinNoise noise = GameObject.FindGameObjectWithTag("Grid").GetComponent<PerlinNoise>();
+            noise.GenerateNoiseMap();
         }
 
         public void ClearMesh()
@@ -57,16 +75,9 @@ namespace HexGen
 
             foreach (Hex cell in cells)
             {
-                int offsetX = Random.Range(0, 999999);
-                int offsetY = Random.Range(0, 999999);
-
-                float scale = 0.01f;
-                int tmp = Random.Range(0, 2);
-                if (Mathf.PerlinNoise(cell.LocalPosition.q * scale + offsetX, cell.LocalPosition.r * scale + offsetY) > 0.5f)
-                    tmp = 0;
-                else
-                    tmp = 1;
-                CreateHexagon(cell.WorldPosition, Colors[tmp]);
+                // Color color = noise.CalculateColor(cell.LocalPosition.q, cell.LocalPosition.r);
+                //Debug.Log(cell.LocalPosition.q + " " + cell.LocalPosition.r);
+                CreateHexagon(cell.WorldPosition, hexGrid.ColorMap[cell.TMPNormal.x, cell.TMPNormal.y]);
             }
 
             ApplyMesh();

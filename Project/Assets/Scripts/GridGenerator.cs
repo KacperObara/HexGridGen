@@ -11,12 +11,33 @@ namespace HexGen
 
         private HexMeshGen meshGen;
 
+        public bool AutoUpdate;
+
+        public void OnValidate()
+        {
+            if (Grid.WorldHeight <= 0)
+                Grid.WorldHeight = 1;
+
+            if (Grid.WorldWidth <= 0)
+                Grid.WorldWidth = 1;
+        }
+
         private void Start()
+        {
+            //Grid.Hexes = new Hex[Grid.WorldWidth * Grid.WorldHeight];
+            //GenerateGrid();
+
+            //meshGen = GetComponent<HexMeshGen>();
+            //meshGen.Triangulate(Grid.Hexes);
+        }
+
+        public void StartGen()
         {
             Grid.Hexes = new Hex[Grid.WorldWidth * Grid.WorldHeight];
             GenerateGrid();
 
             meshGen = GetComponent<HexMeshGen>();
+            meshGen.Initialize();
             meshGen.Triangulate(Grid.Hexes);
         }
 
@@ -34,7 +55,7 @@ namespace HexGen
 
         private void CreateHex(int x, int z, int i)
         {
-            Grid.Hexes[i] = new Hex(HexInfo.OffsetToAxial(x, z), CalcHexPos(x, z));
+            Grid.Hexes[i] = new Hex(HexInfo.OffsetToAxial(x, z), CalcHexPos(x, z), new Vector2Int(x, z));
             SetNeighbors(x, z, i);
         }
 
