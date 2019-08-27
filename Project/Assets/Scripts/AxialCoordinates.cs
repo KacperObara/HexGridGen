@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class AxialCoordinates
+﻿namespace HexGen
 {
-    public int q;
-    public int r;
-
-    public AxialCoordinates(int q, int r)
+    public struct AxialCoordinates
     {
-        this.q = q;
-        this.r = r;
+        public int q;
+        public int r;
+
+        public AxialCoordinates(int q, int r)
+        {
+            this.q = q;
+            this.r = r;
+        }
     }
 }

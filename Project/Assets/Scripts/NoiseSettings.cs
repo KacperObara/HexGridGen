@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NoiseSettings")]
-public class NoiseSettings : ScriptableObject
+namespace HexGen
 {
-    public float scale;
+    [CreateAssetMenu(fileName = "NoiseSettings")]
+    public class NoiseSettings : ScriptableObject
+    {
+        public float scale;
 
-    public int octaves;
-    [Range(0,1)]
+        public int octaves;
+        [Range(0, 1)]
 
-    public float persistance;
-    public float lacunarity;
+        public float persistance;
+        public float lacunarity;
 
-    //public List<Material> Materials;
+        //public List<Material> Materials;
 
-    public TerrainType[] Colors;
+        public TerrainType[] Colors;
+    }
 }

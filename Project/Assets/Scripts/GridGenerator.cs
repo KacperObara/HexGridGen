@@ -13,7 +13,7 @@ namespace HexGen
 
         public bool AutoUpdate;
 
-        public void OnValidate()
+        public void Validate()
         {
             if (Grid.WorldHeight <= 0)
                 Grid.WorldHeight = 1;
@@ -22,27 +22,30 @@ namespace HexGen
                 Grid.WorldWidth = 1;
         }
 
-        private void Start()
+        void Start()
         {
-            //Grid.Hexes = new Hex[Grid.WorldWidth * Grid.WorldHeight];
-            //GenerateGrid();
-
-            //meshGen = GetComponent<HexMeshGen>();
-            //meshGen.Triangulate(Grid.Hexes);
+            if (Grid.Hexes == null)
+            {
+                Validate();
+                CreateGrid();
+            }
         }
 
         public void StartGen()
         {
-            Grid.Hexes = new Hex[Grid.WorldWidth * Grid.WorldHeight];
-            GenerateGrid();
+            Validate();
+
+            CreateGrid();
 
             meshGen = GetComponent<HexMeshGen>();
             meshGen.Initialize();
             meshGen.Triangulate(Grid.Hexes);
         }
 
-        private void GenerateGrid()
+        private void CreateGrid()
         {
+            Grid.Hexes = new Hex[Grid.WorldWidth * Grid.WorldHeight];
+
             int i = 0;
             for (int z = 0; z < Grid.WorldHeight; ++z)
             {
@@ -55,19 +58,15 @@ namespace HexGen
 
         private void CreateHex(int x, int z, int i)
         {
-            Grid.Hexes[i] = new Hex(HexInfo.OffsetToAxial(x, z), CalcHexPos(x, z), new Vector2Int(x, z));
-            SetNeighbors(x, z, i);
-        }
+            Grid.Hexes[i] = new Hex(new Vector2Int(x, z), CalcHexPos(x, z));
 
-        private void SetNeighbors(int x, int z, int i)
-        {
-            if (x > 0)
+            if (i > 0)
             {
                 Grid.Hexes[i].SetNeighbor(HexDirection.W, Grid.Hexes[i - 1]);
             }
             if (z > 0)
             {
-                if (z.IsEven() == true)
+                if ((z & 1) == 0)
                 {
                     Grid.Hexes[i].SetNeighbor(HexDirection.SE, Grid.Hexes[i - Grid.WorldWidth]);
                     if (x > 0)
@@ -97,8 +96,6 @@ namespace HexGen
 
             pos.x *= Grid.offsetMultiplier;
             pos.z *= Grid.offsetMultiplier;
-
-            //pos.y = Random.Range(0, 3) * 5;///
 
             return pos;
         }

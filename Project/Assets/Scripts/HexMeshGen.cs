@@ -38,6 +38,7 @@ namespace HexGen
             mesh = GetComponent<MeshFilter>().mesh = new Mesh();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32; // allows for meshes bigger than ~65000 vertices
 
+            meshCollider = GetComponent<MeshCollider>();
             if (meshCollider == null)
             {
                 meshCollider = gameObject.AddComponent<MeshCollider>();
@@ -75,9 +76,7 @@ namespace HexGen
 
             foreach (Hex cell in cells)
             {
-                // Color color = noise.CalculateColor(cell.LocalPosition.q, cell.LocalPosition.r);
-                //Debug.Log(cell.LocalPosition.q + " " + cell.LocalPosition.r);
-                CreateHexagon(cell.WorldPosition, hexGrid.ColorMap[cell.TMPNormal.x, cell.TMPNormal.y]);
+                CreateHexagon(cell.WorldPos, hexGrid.ColorMap[cell.LocalPos.x, cell.LocalPos.y]);
             }
 
             ApplyMesh();

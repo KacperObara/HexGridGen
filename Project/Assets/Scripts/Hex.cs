@@ -1,35 +1,55 @@
 ﻿using ExtensionMethods;
 using HexGen;
+using System;
 using UnityEngine;
 
-public class Hex
+namespace HexGen
 {
-    public AxialCoordinates LocalPosition { get; private set; }
-    public Vector3 WorldPosition { get; private set; }
-
-    public Vector2Int TMPNormal;
-
-    public Hex(AxialCoordinates localPosition, Vector3 worldPosition, Vector2Int TMPNormal)
+    //[Serializable]
+    public class Hex// : ScriptableObject
     {
-        this.LocalPosition = localPosition;
-        this.WorldPosition = worldPosition;
-        this.TMPNormal = TMPNormal;
-    }
+        /// <summary>
+        /// For hiding warning "Serialization depth limit 7 exceeded"
+        /// If Hexes get moved from HexGrid, then delete this.
+        /// </summary>
+        //[SerializeField]
+        //int m_ID;
 
-    //int Elevation { get; set; }
+        public Vector2Int LocalPos { get; private set; }
+        public AxialCoordinates AxialLocalPos
+        {
+            get { return HexInfo.OffsetToAxial(LocalPos.x, LocalPos.y); }
+            private set { }
+        }
 
-    Hex[] neighbors = new Hex[6];
+        public CubeCoordinates CubeLocalPos
+        {
+            get { return HexInfo.AxialToCube(HexInfo.OffsetToAxial(LocalPos.x, LocalPos.y)); }
+            private set { }
+        }
 
-    public Color color;
+        public Vector3 WorldPos { get; private set; }
 
-    public Hex GetNeighbor(HexDirection direction)
-    {
-        return neighbors[(int)direction];
-    }
+        public Hex(Vector2Int localPos, Vector3 worldPosition)
+        {
+            this.LocalPos = localPos;
+            this.WorldPos = worldPosition;
+        }
 
-    public void SetNeighbor(HexDirection direction, Hex cell)
-    {
-        neighbors[(int)direction] = cell;
-        cell.neighbors[(int)direction.GetOpposite()] = this;
+        public Color color;
+
+        [SerializeField]
+        private Hex[] neighbors = new Hex[6];
+
+        public Hex GetNeighbor(HexDirection direction)
+        {
+            return neighbors[(int)direction];
+        }
+
+        public void SetNeighbor(HexDirection direction, Hex cell)
+        {
+            neighbors[(int)direction] = cell;
+            cell.neighbors[(int)direction.GetOpposite()] = this;
+        }
     }
 }

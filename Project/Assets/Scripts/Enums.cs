@@ -1,5 +1,8 @@
 ﻿
-public enum HexDirection
+namespace HexGen
 {
-    NE, E, SE, SW, W, NW
+    public enum HexDirection
+    {
+        NE, E, SE, SW, W, NW
+    }
 }

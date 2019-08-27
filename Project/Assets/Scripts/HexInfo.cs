@@ -2,7 +2,7 @@
 
 namespace HexGen
 {
-    public class HexInfo : MonoBehaviour
+    public class HexInfo
     {
         public const float OuterRadius = 10f;
         public const float InnerRadius = 8.6602540378f; // http://www.drking.org.uk/hexagons/misc/ratio.html
@@ -21,10 +21,18 @@ namespace HexGen
 
         public static AxialCoordinates OffsetToAxial(int x, int z)
         {
-            var qx = x - (z - (z & 1)) / 2;
-            var qz = z;
+            var q = x - (z - (z & 1)) / 2;
+            var r = z;
 
-            return new AxialCoordinates(qx, qz);
+            return new AxialCoordinates(q, r);
+        }
+
+        public static Vector2Int AxialToOffset(int ax, int az)
+        {
+            var x = ax + (az - (az & 1)) / 2;
+            var z = az;
+
+            return new Vector2Int(x, z);
         }
 
         public static AxialCoordinates CubeToAxial(CubeCoordinates cube)
