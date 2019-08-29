@@ -36,7 +36,7 @@ namespace HexGen
             this.WorldPos = worldPosition;
         }
 
-        public Color color;
+        public TerrainType TerrainType;
 
         [SerializeField]
         private Hex[] neighbors = new Hex[6];

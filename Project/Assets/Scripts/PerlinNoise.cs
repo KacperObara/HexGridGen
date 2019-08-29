@@ -81,11 +81,12 @@ namespace HexGen
                 for (int x = 0; x < grid.WorldWidth; ++x)
                 {
                     float currentHeight = grid.HeightMap[x, y];
-                    for (int i = 0; i < settings.Colors.Length; ++i)
+                    for (int i = 0; i < settings.TerrainTypes.Length; ++i)
                     {
-                        if (currentHeight <= settings.Colors[i].Height)
+                        if (currentHeight <= settings.TerrainTypes[i].NoiseHeight)
                         {
-                            grid.ColorMap[x, y] = settings.Colors[i].Color;
+                            grid.ColorMap[x, y] = settings.TerrainTypes[i].Color;
+                            grid.Hexes[x + y * grid.WorldWidth].TerrainType = settings.TerrainTypes[i];
 
                             break;
                         }

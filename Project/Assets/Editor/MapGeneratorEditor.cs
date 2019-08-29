@@ -12,14 +12,6 @@ namespace HexGen
         {
             GridGenerator gridGen = (GridGenerator)target;
 
-            if (DrawDefaultInspector())
-            {
-                if (gridGen.AutoUpdate)
-                {
-                    gridGen.StartGen();
-                }
-            }
-
             if (GUILayout.Button("Generate"))
             {
                 gridGen.StartGen();

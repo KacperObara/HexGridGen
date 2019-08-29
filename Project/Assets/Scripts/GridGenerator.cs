@@ -11,8 +11,6 @@ namespace HexGen
 
         private HexMeshGen meshGen;
 
-        public bool AutoUpdate;
-
         public void Validate()
         {
             if (Grid.WorldHeight <= 0)
@@ -28,6 +26,7 @@ namespace HexGen
             {
                 Validate();
                 CreateGrid();
+                //GameObject.FindGameObjectWithTag("Grid").GetComponent<PerlinNoise>().ApplyColors();
             }
         }
 

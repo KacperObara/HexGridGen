@@ -16,13 +16,9 @@ MonoBehaviour:
   octaves: 4
   persistance: 0.5
   lacunarity: 1.87
-  Colors:
-  - Name: Water
-    Height: 0.4
-    Color: {r: 0.1745283, g: 0.6560861, b: 1, a: 0}
-  - Name: Sand
-    Height: 0.5
-    Color: {r: 0.6698113, g: 0.6079101, b: 0.2432805, a: 0}
-  - Name: Land
-    Height: 1
-    Color: {r: 0.08775366, g: 0.6415094, b: 0.09435521, a: 0}
+  TerrainTypes:
+  - {fileID: 11400000, guid: b3b9d014320bcc44489b9c4977ba40b1, type: 2}
+  - {fileID: 11400000, guid: be01055856b60fd48938f46c20769bfe, type: 2}
+  - {fileID: 11400000, guid: c112bca1b788e784da3f72924e198558, type: 2}
+  - {fileID: 11400000, guid: 8c50c2122bb3714479fdbe88fc2b050e, type: 2}
+  - {fileID: 11400000, guid: 96ae72f8be4c2c24e98c6a89e1c60a0b, type: 2}

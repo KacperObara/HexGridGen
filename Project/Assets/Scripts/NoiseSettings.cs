@@ -17,6 +17,6 @@ namespace HexGen
 
         //public List<Material> Materials;
 
-        public TerrainType[] Colors;
+        public TerrainType[] TerrainTypes;
     }
 }
