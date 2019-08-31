@@ -1,88 +1,91 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace HexGen
 {
     public class Pathfinding : MonoBehaviour
     {
-        public GameObject Prefab;
-
-        public void Search(Hex startNode, Hex endNode)
+        /// <summary>
+        /// Returns Path from startNode to endNode (including both)
+        /// </summary>
+        /// <param name="startNode"></param>
+        /// <param name="endNode"></param>
+        /// <returns></returns>
+        public List<Hex> Search(Hex startNode, Hex endNode)
         {
-            Instantiate(Prefab, new Vector3(startNode.WorldPos.x, startNode.WorldPos.y + 5, startNode.WorldPos.z), Quaternion.identity);
-            Instantiate(Prefab, new Vector3(endNode.WorldPos.x, endNode.WorldPos.y + 5, endNode.WorldPos.z), Quaternion.identity);
+            if (startNode.TerrainType.Passable == false || endNode.TerrainType.Passable == false || startNode == endNode)
+                return new List<Hex>();
 
-            List<Hex> openList = new List<Hex>();
-            List<Hex> closedList = new List<Hex>();
+            List<HexNode> openList = new List<HexNode>();
+            List<HexNode> closedList = new List<HexNode>();
 
-            openList.Add(startNode);
+            openList.Add(new HexNode(startNode));
 
-            int index = 0;
+            // Loop until you no more nodes in graph
             while (openList.Count > 0)
             {
-                Hex currentNode = GetLowestDist(openList, startNode, endNode);
-                Debug.Log("Wal sie");
+                HexNode currentNode = GetLowestDist(openList, startNode, endNode);
 
                 openList.Remove(currentNode);
                 closedList.Add(currentNode);
 
-                if (currentNode == endNode)
+                // Found the goal
+                if (currentNode.Node == endNode)
                 {
-                    for (int i = 0; i < closedList.Count; i++)
+                    List<Hex> path = new List<Hex>();
+                    HexNode current = currentNode;
+                    while (current.Node != startNode && current.Node != null)
                     {
-                        //Debug.Log(closedList[i].LocalPos);
-                        Instantiate(Prefab, closedList[i].WorldPos, Quaternion.identity);
+                        path.Add(current.Node);
+                        current = current.Parent;
                     }
-                    return;
+                    path.Add(startNode);
+                    path.Reverse();
+                    return path;
                 }
 
-                List<Hex> children = new List<Hex>();
+                // Generate children
+                List<HexNode> children = new List<HexNode>();
                 for (int i = 0; i < HexInfo.HexSides; ++i)
                 {
-                    if (currentNode.GetNeighbor((HexDirection)i) != null)
-                    { // walkable terrain here or by childH?
-                      // Use the distance formula, scaled to match the 
-                      // movement costs. For example if your movement cost 
-                      // is 5 per hex, then multiply the distance by 5.
-                        children.Add(currentNode.GetNeighbor((HexDirection)i));
-                    }
+                    Hex child = currentNode.Node.GetNeighbor((HexDirection)i);
+
+                    if (child != null)
+                        if (child.TerrainType.Passable == true)
+                            children.Add(new HexNode(child, currentNode));
                 }
 
+                // Loop through children
                 for (int i = 0; i < children.Count; ++i)
                 {
-                    if (closedList.Contains(children[i]))
+                    if (FindInList(closedList, children[i]))
                         continue;
 
-                    int childG = GetDistance(children[i], startNode);
-                    int childH = GetDistance(children[i], endNode);
-                    int childF = childG + childH;
+                    int childG = HexInteraction.GetDistance(children[i].Node, startNode, true);
 
-                    if (openList.Contains(children[i]))
-                        if (childG > GetDistance(currentNode, startNode))
+                    if (FindInList(openList, children[i]))
+                        if (childG > HexInteraction.GetDistance(currentNode.Node, startNode, true))
                             continue;
 
                     openList.Add(children[i]);
                 }
-
             }
+
+            return new List<Hex>();
         }
 
-        int GetDistance(Hex currentNode, Hex targetNode)
+        HexNode GetLowestDist(List<HexNode> openList, Hex startNode, Hex endNode)
         {
-            return Mathf.Abs(targetNode.LocalPos.x + currentNode.LocalPos.x)
-                 + Mathf.Abs(targetNode.LocalPos.y - currentNode.LocalPos.y);
-        }
-
-        Hex GetLowestDist(List<Hex> openList, Hex startNode, Hex endNode)
-        {
-            Hex currentNode = null;
+            HexNode currentNode = null;
             int lowestF = int.MaxValue;
 
             for (int i = 0; i < openList.Count; ++i)
             {
-                int G = GetDistance(openList[i], startNode);
-                int H = GetDistance(openList[i], endNode);
+                // Distance between current node and start
+                int G = HexInteraction.GetDistance(openList[i].Node, startNode, true);
+                // Distance between current node and end
+                int H = HexInteraction.GetDistance(openList[i].Node, endNode, true);
+                // Total cost of the node
                 int F = G + H;
 
                 if (F < lowestF)
@@ -94,12 +97,33 @@ namespace HexGen
 
             return currentNode;
         }
-    }
 
-    struct HexNode
-    {
-        public Hex Node;
-        public Hex Parent;
+        private bool FindInList(List<HexNode> list, HexNode hexNode)
+        {
+            foreach (HexNode item in list)
+            {
+                if (hexNode.Node == item.Node)
+                    return true;
+            }
+            return false;
+        }
+
+
+        private class HexNode
+        {
+            public Hex Node;
+            public HexNode Parent;
+
+            public HexNode(Hex Node)
+            {
+                this.Node = Node;
+            }
+            public HexNode(Hex Node, HexNode Parent)
+            {
+                this.Node = Node;
+                this.Parent = Parent;
+            }
+        }
     }
 }
 

@@ -1,32 +1,41 @@
-﻿using HexGen;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace HexGen
 {
-    public class HexInteraction : MonoBehaviour
+    public class HexInteraction
     {
-        public static Hex SelectHexagon(Vector3 mousePosition, HexGrid grid)
+        public static Hex SelectHexagon(Vector3 mousePosition, Hex[] hexes)
         {
             float q = (Mathf.Sqrt(3f) / 3f * mousePosition.x - 1f / 3f * mousePosition.z) / HexInfo.OuterRadius;
             float r = (2f / 3f * mousePosition.z) / HexInfo.OuterRadius;
-            AxialCoordinates a = HexInfo.RoundPixelToHex(q, -q - r);
+            AxialCoordinates axial = HexInfo.PixelToAxial(q, -q - r);
 
-            ///
-            Hex h = grid.GetHex(a.q, a.r);
-            Debug.Log("Pozycja obliczona: Lokalnie:  " + h.LocalPos.x + " " + h.LocalPos.y);
-            //Debug.Log("Pozycja obliczona: Axial:     " + h.AxialLocalPos.q + " " + h.AxialLocalPos.r);
-            //Debug.Log("Pozycja obliczona: Cube:      " + h.CubeLocalPos.x + " " + h.CubeLocalPos.y + " " + h.CubeLocalPos.z);
-            //Debug.Log("Pozycja obliczona: World pos: " + h.WorldPos.x + " " + h.WorldPos.y + " " + h.WorldPos.z);
-            //AxialCoordinates b = grid.GetHex(a.q, a.r).AxialLocalPos;
-            ///
-            //Debug.Log(h.GetNeighbor(HexDirection.W).LocalPos);
-            Debug.Log(h.TerrainType);
+            return AxialToHex(axial, hexes);
+        }
 
-            GameObject.FindGameObjectWithTag("Grid").GetComponent<Pathfinding>().Search(h, grid.GetHex(5, 5));
+        public static int GetDistance(Hex first, Hex second, bool withCost)
+        {
+            CubeCoordinates a = first.CubeLocalPos;
+            CubeCoordinates b = second.CubeLocalPos;
 
-            return grid.GetHex(a.q, a.r);
+            if (withCost)
+                return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z) * first.TerrainType.movementCost) / 2;
+            else
+                return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z)) / 2;
+        }
+
+        public static Hex CubeToHex(CubeCoordinates coords, Hex[] hexes)
+        {
+            return AxialToHex(HexInfo.CubeToAxial(coords), hexes);
+        }
+
+        public static Hex AxialToHex(AxialCoordinates axial, Hex[] hexes)
+        {
+            int index = Array.FindIndex(hexes, element => (element.AxialLocalPos.q == axial.q)
+                                                       && (element.AxialLocalPos.r == axial.r));
+            Debug.Assert(index >= 0);
+            return hexes[index];
         }
     }
 }

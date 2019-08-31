@@ -25,15 +25,8 @@ public class PlayerInput : MonoBehaviour
         {
             if (hit.transform.GetComponent<GridGenerator>())
             {
-                hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<GridGenerator>().Grid);
-                //Debug.Assert(hex != null);
-                //for (int i = 0; i < 6; ++i)
-                //{
-                //    if (hex.GetNeighbor((HexDirection)i) != null)
-                //    {
-                //        Instantiate(tmp, hex.GetNeighbor((HexDirection)i).WorldPosition, Quaternion.identity);
-                //    }
-                //}
+                hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<GridGenerator>().Grid.Hexes);
+                Debug.Assert(hex != null);
             }
         }
     }

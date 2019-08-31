@@ -24,7 +24,7 @@ namespace HexGen
         {
             var q = x - (z - (z & 1)) / 2;
             var r = z;
-
+            
             return new AxialCoordinates(q, r);
         }
 
@@ -51,15 +51,15 @@ namespace HexGen
             return new CubeCoordinates(x, y, z);
         }
 
-        public static AxialCoordinates RoundPixelToHex(float q, float r)
+        public static AxialCoordinates PixelToAxial(float q, float r)
         {
             float x = q;
             float y = r;
             float z = -x - y;
-            return CubeToAxial(RoundPixelToHex(x, y, z));
+            return CubeToAxial(PixelToCube(x, y, z));
         }
 
-        public static CubeCoordinates RoundPixelToHex(float x, float y, float z)
+        public static CubeCoordinates PixelToCube(float x, float y, float z)
         {
             int rx = (int)Mathf.Round(x);
             int ry = (int)Mathf.Round(y);

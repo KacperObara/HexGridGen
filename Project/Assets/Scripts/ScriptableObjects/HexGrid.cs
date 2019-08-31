@@ -15,13 +15,5 @@ namespace HexGen
 
         [SerializeField]
         public Hex[] Hexes;
-
-        public Hex GetHex(int q, int r)
-        {
-            int index = Array.FindIndex(Hexes, element => (element.AxialLocalPos.q == q)
-                                                       && (element.AxialLocalPos.r == r));
-            Debug.Assert(index >= 0);
-            return Hexes[index];
-        }
     }
 }

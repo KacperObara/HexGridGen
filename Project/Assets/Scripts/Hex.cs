@@ -5,16 +5,8 @@ using UnityEngine;
 
 namespace HexGen
 {
-    //[Serializable]
-    public class Hex// : ScriptableObject
+    public class Hex
     {
-        /// <summary>
-        /// For hiding warning "Serialization depth limit 7 exceeded"
-        /// If Hexes get moved from HexGrid, then delete this.
-        /// </summary>
-        //[SerializeField]
-        //int m_ID;
-
         public Vector2Int LocalPos { get; private set; }
         public AxialCoordinates AxialLocalPos
         {

@@ -8,7 +8,7 @@ namespace HexGen
         public float NoiseHeight;
         public Color Color;
 
-        //public int movementCost;
+        public int movementCost;
 
         public bool Passable;
     }
