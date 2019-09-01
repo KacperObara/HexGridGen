@@ -15,9 +15,9 @@ namespace HexGen
 
         private Vector3 CubeLerp(Hex first, Hex second, float time)
         {
-            return new Vector3(Lerp(first.CubeLocalPos.x, second.CubeLocalPos.x, time),
-                               Lerp(first.CubeLocalPos.y, second.CubeLocalPos.y, time),
-                               Lerp(first.CubeLocalPos.z, second.CubeLocalPos.z, time));
+            return new Vector3(Lerp(first.WorldPos.x, second.WorldPos.x, time),
+                               Lerp(first.WorldPos.y, second.WorldPos.y, time),
+                               Lerp(first.WorldPos.z, second.WorldPos.z, time));
         }
 
         public List<Hex> GetHexLine(Hex start, Hex end)
@@ -29,21 +29,10 @@ namespace HexGen
             for (int i = 0; i < length; i++)
             {
                 Vector3 coords = CubeLerp(start, end, 1.0f / length * i);
-                Debug.Log(coords);
-                CubeCoordinates cube = HexInfo.PixelToCube(coords.x, coords.y, coords.z);
-                Debug.Log(cube.x + " " + cube.y + " " + cube.z);
-                //CubeCoordinates coords = CubeLerp(start, end, 1.0f / length * i);
-                hexes.Add(HexInteraction.CubeToHex(cube, grid.Hexes));
-                //hexes.Add(HexInteraction.CubeToHex(coords, grid.Hexes));
+                hexes.Add(HexInteraction.SelectHexagon(coords, grid.Hexes));
             }
 
             return hexes;
-        }
-
-
-        private void F()
-        {
-
         }
     }
 }
