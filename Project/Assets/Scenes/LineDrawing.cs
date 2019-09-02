@@ -38,9 +38,9 @@ namespace LineDrawingExample
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.GetComponent<GridGenerator>())
+                if (hit.transform.GetComponent<Generator>())
                 {
-                    Hex hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<GridGenerator>().Grid.Hexes);
+                    Hex hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().HexGrid.Hexes);
 
                     if (click == MouseClick.Left)
                     {
@@ -53,7 +53,7 @@ namespace LineDrawingExample
 
                     if (startNode != null && endNode != null)
                     {
-                        List<Hex> hexes = GameObject.FindGameObjectWithTag("Grid").GetComponent<HexLine>().GetHexLine(startNode, endNode);
+                        List<Hex> hexes = GetComponent<HexLine>().GetHexLine(startNode, endNode);
                         Vector3[] positions = hexes.Select(x => x.WorldPos).ToArray();
 
                         for (int i = line.Count - 1; i >= 0; --i)

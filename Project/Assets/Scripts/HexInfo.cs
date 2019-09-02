@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace HexGen
 {
@@ -51,15 +52,15 @@ namespace HexGen
             return new CubeCoordinates(x, y, z);
         }
 
-        public static AxialCoordinates PixelToAxial(float q, float r)
+        public static AxialCoordinates AxialRound(float q, float r)
         {
             float x = q;
             float y = r;
             float z = -x - y;
-            return CubeToAxial(PixelToCube(x, y, z));
+            return CubeToAxial(CubeRound(x, y, z));
         }
 
-        public static CubeCoordinates PixelToCube(float x, float y, float z)
+        public static CubeCoordinates CubeRound(float x, float y, float z)
         {
             int rx = (int)Mathf.Round(x);
             int ry = (int)Mathf.Round(y);
@@ -77,6 +78,39 @@ namespace HexGen
                 rz = -rx - ry;
 
             return new CubeCoordinates(rx, ry, rz);
+        }
+
+        public static int GetDistance(Hex first, Hex second, bool withCost)
+        {
+            CubeCoordinates a = first.CubeLocalPos;
+            CubeCoordinates b = second.CubeLocalPos;
+
+            if (withCost)
+                return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z) * first.TerrainType.movementCost) / 2;
+            else
+                return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z)) / 2;
+        }
+
+        public static Hex CubeToHex(CubeCoordinates coords, Hex[] hexes)
+        {
+            return AxialToHex(CubeToAxial(coords), hexes);
+        }
+
+        public static Hex AxialToHex(AxialCoordinates axial, Hex[] hexes)
+        {
+            int index = Array.FindIndex(hexes, element => (element.AxialLocalPos.q == axial.q)
+                                                       && (element.AxialLocalPos.r == axial.r));
+            Debug.Assert(index >= 0);
+            return hexes[index];
+        }
+
+        public static Hex PixelToHex(Vector3 mousePosition, Hex[] hexes)
+        {
+            float q = (Mathf.Sqrt(3f) / 3f * mousePosition.x - 1f / 3f * mousePosition.z) / OuterRadius;
+            float r = (2f / 3f * mousePosition.z) / OuterRadius;
+            AxialCoordinates axial = AxialRound(q, -q - r);
+
+            return AxialToHex(axial, hexes);
         }
     }
 }

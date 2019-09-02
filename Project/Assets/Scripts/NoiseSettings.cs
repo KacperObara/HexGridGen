@@ -7,13 +7,16 @@ namespace HexGen
     [CreateAssetMenu(fileName = "NoiseSettings")]
     public class NoiseSettings : ScriptableObject
     {
-        public float scale;
+        public float Scale;
 
-        public int octaves;
+        public int Octaves;
+
         [Range(0, 1)]
+        public float Persistance;
+        public float Lacunarity;
 
-        public float persistance;
-        public float lacunarity;
+        [Tooltip("If 0, then generate seed")]
+        public int Seed;
 
         //public List<Material> Materials;
 

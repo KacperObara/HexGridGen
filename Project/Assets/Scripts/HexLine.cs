@@ -24,12 +24,12 @@ namespace HexGen
         {
             List<Hex> hexes = new List<Hex>();
 
-            int length = HexInteraction.GetDistance(start, end, false);
+            int length = HexInfo.GetDistance(start, end, false);
 
             for (int i = 0; i < length; i++)
             {
                 Vector3 coords = CubeLerp(start, end, 1.0f / length * i);
-                hexes.Add(HexInteraction.SelectHexagon(coords, grid.Hexes));
+                hexes.Add(HexInfo.PixelToHex(coords, grid.Hexes));
             }
 
             return hexes;

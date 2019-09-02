@@ -1,20 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace HexGen
 {
-    [CustomEditor(typeof(GridGenerator))]
+    [CustomEditor(typeof(Generator))]
     public class MapGeneratorEditor : Editor
     {
         public override void OnInspectorGUI()
         {
-            GridGenerator gridGen = (GridGenerator)target;
+            DrawDefaultInspector();
+            Generator generator = (Generator)target;
 
             if (GUILayout.Button("Generate"))
             {
-                gridGen.StartGen();
+                generator.Generate();
             }
         }
     }

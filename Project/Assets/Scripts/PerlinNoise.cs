@@ -2,7 +2,8 @@
 
 namespace HexGen
 {
-    public class PerlinNoise : MonoBehaviour
+    [CreateAssetMenu]
+    public class PerlinNoise : NoiseGen
     {
         public NoiseSettings settings;
 
@@ -10,20 +11,34 @@ namespace HexGen
 
         public void Validate()
         {
-            if (settings.lacunarity < 1)
-                settings.lacunarity = 1;
+            if (settings.Lacunarity < 1)
+            {
+                settings.Lacunarity = 1;
+                Debug.LogWarning("Lacunarity can't be < 1. Changing to 1");
+            }
 
-            if (settings.octaves < 1)
-                settings.octaves = 1;
+            if (settings.Octaves < 1)
+            {
+                settings.Octaves = 1;
+                Debug.LogWarning("Octaves can't be < 1. Changing to 1");
+            }
         }
 
-        public void GenerateNoiseMap()
+        public override void Initialize(Generator generator)
+        {
+            this.grid = generator.HexGrid;
+            this.settings = generator.NoiseSettings;
+        }
+
+        public override void Generate()
         {
             Validate();
 
             grid.HeightMap = new float[grid.WorldWidth, grid.WorldHeight];
             grid.ColorMap = new Color[grid.WorldWidth, grid.WorldHeight];
 
+            if (settings.Seed != 0)
+                Random.InitState(settings.Seed);
             float offset = Random.Range(0, 999999);
 
             float maxNoiseHeight = float.MinValue;
@@ -37,17 +52,17 @@ namespace HexGen
                     float frequency = 1;
                     float noiseHeight = 0;
 
-                    for (int i = 0; i < settings.octaves; ++i)
+                    for (int i = 0; i < settings.Octaves; ++i)
                     {
-                        float xCoord = x / settings.scale * frequency + offset * frequency;
-                        float yCoord = y / settings.scale * frequency + offset * frequency;
+                        float xCoord = x / settings.Scale * frequency + offset * frequency;
+                        float yCoord = y / settings.Scale * frequency + offset * frequency;
 
                         float perlinValue = Mathf.PerlinNoise(xCoord, yCoord) * 2 - 1;
 
                         noiseHeight += perlinValue * amplitude;
 
-                        amplitude *= settings.persistance;
-                        frequency *= settings.lacunarity;
+                        amplitude *= settings.Persistance;
+                        frequency *= settings.Lacunarity;
                     }
 
                     if (noiseHeight > maxNoiseHeight)

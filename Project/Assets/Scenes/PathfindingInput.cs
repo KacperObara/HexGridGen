@@ -39,9 +39,9 @@ namespace PathfindingExample
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.GetComponent<GridGenerator>())
+                if (hit.transform.GetComponent<Generator>())
                 {
-                    Hex hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<GridGenerator>().Grid.Hexes);
+                    Hex hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().HexGrid.Hexes);
 
                     if (click == MouseClick.Left)
                     {
@@ -54,7 +54,7 @@ namespace PathfindingExample
 
                     if (startNode != null && endNode != null)
                     {
-                        List<Hex> hexes = GameObject.FindGameObjectWithTag("Grid").GetComponent<Pathfinding>().Search(startNode, endNode);
+                        List<Hex> hexes = GetComponent<Pathfinding>().Search(startNode, endNode);
                         Vector3[] positions = hexes.Select(x => x.WorldPos).ToArray();
 
                         Destroy(start);

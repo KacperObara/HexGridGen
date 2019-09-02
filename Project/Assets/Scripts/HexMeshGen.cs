@@ -4,51 +4,47 @@ using UnityEngine;
 
 namespace HexGen
 {
-    [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-    public class HexMeshGen : MonoBehaviour
+    [CreateAssetMenu]
+    public class HexMeshGen : MeshGen
     {
-        Mesh mesh;
-        MeshCollider meshCollider;
-        List<Vector3> vertices;
-        List<int> triangles;
-        List<Color32> appliedColors; //Color32 is more performant
+        private HexGrid grid;
+        private Mesh mesh;
+        private MeshCollider meshCollider;
 
-        //public List<Color32> Colors;
+        private List<Vector3> vertices;
+        private List<int> triangles;
+        private List<Color32> appliedColors; //Color32 is more performant than Color
 
-        public HexGrid hexGrid;
-
-        private void Awake()
+        public override void Initialize(Generator generator)
         {
-            //vertices = new List<Vector3>();
-            //triangles = new List<int>();
-            //appliedColors = new List<Color32>();
+            this.grid = generator.HexGrid;
+            this.meshCollider = generator.GetComponent<MeshCollider>();
 
-            //mesh = GetComponent<MeshFilter>().mesh = new Mesh();
-            //mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32; // allows for meshes bigger than ~65000 vertices
-
-            //meshCollider = gameObject.AddComponent<MeshCollider>();
-        }
-
-        public void Initialize()
-        {
             vertices = new List<Vector3>();
             triangles = new List<int>();
             appliedColors = new List<Color32>();
 
-            mesh = GetComponent<MeshFilter>().mesh = new Mesh();
+            mesh = generator.GetComponent<MeshFilter>().mesh = new Mesh();
             mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32; // allows for meshes bigger than ~65000 vertices
-
-            meshCollider = GetComponent<MeshCollider>();
-            if (meshCollider == null)
-            {
-                meshCollider = gameObject.AddComponent<MeshCollider>();
-            }
-
-            PerlinNoise noise = GameObject.FindGameObjectWithTag("Grid").GetComponent<PerlinNoise>();
-            noise.GenerateNoiseMap();
         }
 
-        public void ClearMesh()
+        /// <summary>
+        /// Clear mesh, generate hexagons and assign them to mesh
+        /// </summary>
+        /// <param name="cells"></param>
+        public override void Generate()
+        {
+            ClearMesh();
+
+            foreach (Hex cell in grid.Hexes)
+            {
+                CreateHexagon(cell.WorldPos, grid.ColorMap[cell.LocalPos.x, cell.LocalPos.y]);
+            }
+
+            ApplyMesh();
+        }
+
+        private void ClearMesh()
         {
             mesh.Clear();
             vertices.Clear();
@@ -56,7 +52,7 @@ namespace HexGen
             appliedColors.Clear();
         }
 
-        public void ApplyMesh()
+        private void ApplyMesh()
         {
             mesh.vertices = vertices.ToArray();
             mesh.triangles = triangles.ToArray();
@@ -64,22 +60,6 @@ namespace HexGen
 
             meshCollider.sharedMesh = mesh;
             meshCollider.sharedMesh.colors32 = appliedColors.ToArray();
-        }
-
-        /// <summary>
-        /// Clear mesh, generate hexagons and assign them to mesh
-        /// </summary>
-        /// <param name="cells"></param>
-        public void Triangulate(Hex[] cells)
-        {
-            ClearMesh();
-
-            foreach (Hex cell in cells)
-            {
-                CreateHexagon(cell.WorldPos, hexGrid.ColorMap[cell.LocalPos.x, cell.LocalPos.y]);
-            }
-
-            ApplyMesh();
         }
 
         /// <summary>

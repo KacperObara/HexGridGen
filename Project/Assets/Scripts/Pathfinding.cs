@@ -61,10 +61,10 @@ namespace HexGen
                     if (FindInList(closedList, children[i]))
                         continue;
 
-                    int childG = HexInteraction.GetDistance(children[i].Node, startNode, true);
+                    int childG = HexInfo.GetDistance(children[i].Node, startNode, true);
 
                     if (FindInList(openList, children[i]))
-                        if (childG > HexInteraction.GetDistance(currentNode.Node, startNode, true))
+                        if (childG > HexInfo.GetDistance(currentNode.Node, startNode, true))
                             continue;
 
                     openList.Add(children[i]);
@@ -82,9 +82,9 @@ namespace HexGen
             for (int i = 0; i < openList.Count; ++i)
             {
                 // Distance between current node and start
-                int G = HexInteraction.GetDistance(openList[i].Node, startNode, true);
+                int G = HexInfo.GetDistance(openList[i].Node, startNode, true);
                 // Distance between current node and end
-                int H = HexInteraction.GetDistance(openList[i].Node, endNode, true);
+                int H = HexInfo.GetDistance(openList[i].Node, endNode, true);
                 // Total cost of the node
                 int F = G + H;
 

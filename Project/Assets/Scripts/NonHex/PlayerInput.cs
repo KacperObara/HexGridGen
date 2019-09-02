@@ -23,9 +23,9 @@ public class PlayerInput : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.GetComponent<GridGenerator>())
+            if (hit.transform.GetComponent<Generator>())
             {
-                hex = HexInteraction.SelectHexagon(hit.point, hit.transform.GetComponent<GridGenerator>().Grid.Hexes);
+                hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().HexGrid.Hexes);
                 Debug.Assert(hex != null);
             }
         }
