@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     Hex hex;
-    //public GameObject tmp;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (hit.transform.GetComponent<Generator>())
             {
-                hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().HexGrid.Hexes);
+                hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
                 Debug.Assert(hex != null);
             }
         }

@@ -127,4 +127,14 @@ namespace HexGen
     }
 }
 
+/*
+     Add it to "Found the goal" to debug the whole path that has been searched  
+   
+     List<Hex> debugSearchingPath = new List<Hex>();
+     for (int i = 0; i < closedList.Count; i++)
+     {
+         debugSearchingPath.Add(closedList[i].Node);
+     }
 
+     return debugSearchingPath;
+*/

@@ -40,7 +40,7 @@ namespace LineDrawingExample
             {
                 if (hit.transform.GetComponent<Generator>())
                 {
-                    Hex hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().HexGrid.Hexes);
+                    Hex hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
 
                     if (click == MouseClick.Left)
                     {

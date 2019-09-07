@@ -4,25 +4,50 @@ using UnityEngine;
 
 namespace HexGen
 {
-    [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class Generator : MonoBehaviour
     {
-        public GridGen GridGen;
-        public NoiseGen NoiseGen;
-        public MeshGen MeshGen;
+        public List<Gen> generators;
 
-        public HexGrid HexGrid;
-        public NoiseSettings NoiseSettings;
+        public MapData MapData;
+        public MapSettings MapSettings;
+
+        [Space]
+        public SaveFile SaveFile;
 
         public void Generate()
         {
-            GridGen.Initialize(this);
-            NoiseGen.Initialize(this);
-            MeshGen.Initialize(this);
+            foreach (Gen generator in generators)
+            {
+                generator.Initialize(this);
+            }
 
-            GridGen.Generate();
-            NoiseGen.Generate();
-            MeshGen.Generate();
+            foreach (Gen generator in generators)
+            {
+                generator.Generate();
+            }
+        }
+
+        public void LoadMap()
+        {
+            if (SaveFile == null)
+            {
+                Debug.LogWarning("There is no save file to load");
+                return;
+            }
+
+            MapSettings.Load(SaveManager.Load(SaveFile));
+            Generate();
+        }
+
+        public void ClearMap()
+        {
+            GridGenerator g = generators[0] as GridGenerator;
+            g.ClearHexes();
+        }
+
+        public void SaveMap()
+        {
+            SaveManager.Save(this);
         }
     }
 }

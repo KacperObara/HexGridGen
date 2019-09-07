@@ -10,5 +10,10 @@
             this.q = q;
             this.r = r;
         }
+
+        public override string ToString()
+        {
+            return $"{q} {r}";
+        }
     }
 }

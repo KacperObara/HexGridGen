@@ -21,20 +21,20 @@ namespace HexGen
         new Vector3(0f, 0f, OuterRadius)
         };
 
-        public static AxialCoordinates OffsetToAxial(int x, int z)
+        public static AxialCoordinates LocalToAxial(int x, int y)
         {
-            var q = x - (z - (z & 1)) / 2;
-            var r = z;
+            var q = x - (y - (y & 1)) / 2;
+            var r = y;
             
             return new AxialCoordinates(q, r);
         }
 
-        public static Vector2Int AxialToOffset(int ax, int az)
+        public static Vector2Int AxialToLocal(int q, int r)
         {
-            var x = ax + (az - (az & 1)) / 2;
-            var z = az;
+            var x = q + (r - (r & 1)) / 2;
+            var y = r;
 
-            return new Vector2Int(x, z);
+            return new Vector2Int(x, y);
         }
 
         public static AxialCoordinates CubeToAxial(CubeCoordinates cube)
@@ -44,19 +44,41 @@ namespace HexGen
             return new AxialCoordinates(q, r);
         }
 
+        public static AxialCoordinates CubeToAxial(int x, int y, int z)
+        {
+            int q = x;
+            int r = z;
+            return new AxialCoordinates(q, r);
+        }
+
+        public static AxialCoordinates CubeToAxial(int x, int z)
+        {
+            int q = x;
+            int r = z;
+            return new AxialCoordinates(q, r);
+        }
+
         public static CubeCoordinates AxialToCube(AxialCoordinates axial)
         {
             int x = axial.q;
-            int y = axial.r;
-            int z = -x - y;
+            int z = axial.r;
+            int y = -x - z;
+            return new CubeCoordinates(x, y, z);
+        }
+
+        public static CubeCoordinates AxialToCube(int q, int r)
+        {
+            int x = q;
+            int z = r;
+            int y = -x - z;
             return new CubeCoordinates(x, y, z);
         }
 
         public static AxialCoordinates AxialRound(float q, float r)
         {
             float x = q;
-            float y = r;
-            float z = -x - y;
+            float z = r;
+            float y = -x - z;
             return CubeToAxial(CubeRound(x, y, z));
         }
 
@@ -86,7 +108,7 @@ namespace HexGen
             CubeCoordinates b = second.CubeLocalPos;
 
             if (withCost)
-                return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z) * first.TerrainType.movementCost) / 2;
+                return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z) * first.TerrainType.MovementCost) / 2;
             else
                 return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z)) / 2;
         }
@@ -108,7 +130,7 @@ namespace HexGen
         {
             float q = (Mathf.Sqrt(3f) / 3f * mousePosition.x - 1f / 3f * mousePosition.z) / OuterRadius;
             float r = (2f / 3f * mousePosition.z) / OuterRadius;
-            AxialCoordinates axial = AxialRound(q, -q - r);
+            AxialCoordinates axial = AxialRound(q, r);
 
             return AxialToHex(axial, hexes);
         }

@@ -3,11 +3,10 @@
 namespace HexGen
 {
     [CreateAssetMenu]
-    public class PerlinNoise : NoiseGen
+    public class PerlinNoise : Gen
     {
-        public NoiseSettings settings;
-
-        public HexGrid grid;
+        private MapSettings settings;
+        private MapData mapData;
 
         public void Validate()
         {
@@ -26,27 +25,37 @@ namespace HexGen
 
         public override void Initialize(Generator generator)
         {
-            this.grid = generator.HexGrid;
-            this.settings = generator.NoiseSettings;
+            this.mapData = generator.MapData;
+            this.settings = generator.MapSettings;
         }
 
         public override void Generate()
         {
             Validate();
 
-            grid.HeightMap = new float[grid.WorldWidth, grid.WorldHeight];
-            grid.ColorMap = new Color[grid.WorldWidth, grid.WorldHeight];
+            mapData.HeightMap = new float[settings.WorldWidth, settings.WorldHeight];
+            mapData.ColorMap = new Color[settings.WorldWidth, settings.WorldHeight];
 
             if (settings.Seed != 0)
+            {
                 Random.InitState(settings.Seed);
+                settings.ActualSeed = settings.Seed;
+            }
+            else
+            {
+                int seed = Random.Range(0, 999999);
+                Random.InitState(seed);
+                settings.ActualSeed = seed;
+            }
+                
             float offset = Random.Range(0, 999999);
 
             float maxNoiseHeight = float.MinValue;
             float minNoiseHeight = float.MaxValue;
 
-            for (int y = 0; y < grid.WorldHeight; ++y)
+            for (int y = 0; y < settings.WorldHeight; ++y)
             {
-                for (int x = 0; x < grid.WorldWidth; ++x)
+                for (int x = 0; x < settings.WorldWidth; ++x)
                 {
                     float amplitude = 1;
                     float frequency = 1;
@@ -74,15 +83,15 @@ namespace HexGen
                         minNoiseHeight = noiseHeight;
                     }
 
-                    grid.HeightMap[x, y] = noiseHeight;
+                    mapData.HeightMap[x, y] = noiseHeight;
                 }
             }
 
-            for (int y = 0; y < grid.WorldHeight; ++y)
+            for (int y = 0; y < settings.WorldHeight; ++y)
             {
-                for (int x = 0; x < grid.WorldWidth; ++x)
+                for (int x = 0; x < settings.WorldWidth; ++x)
                 {
-                    grid.HeightMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, grid.HeightMap[x, y]);
+                    mapData.HeightMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, mapData.HeightMap[x, y]);
                 }
             }
 
@@ -91,17 +100,17 @@ namespace HexGen
 
         public void ApplyColors()
         {
-            for (int y = 0; y < grid.WorldHeight; ++y)
+            for (int y = 0; y < settings.WorldHeight; ++y)
             {
-                for (int x = 0; x < grid.WorldWidth; ++x)
+                for (int x = 0; x < settings.WorldWidth; ++x)
                 {
-                    float currentHeight = grid.HeightMap[x, y];
+                    float currentHeight = mapData.HeightMap[x, y];
                     for (int i = 0; i < settings.TerrainTypes.Length; ++i)
                     {
                         if (currentHeight <= settings.TerrainTypes[i].NoiseHeight)
                         {
-                            grid.ColorMap[x, y] = settings.TerrainTypes[i].Color;
-                            grid.Hexes[x + y * grid.WorldWidth].TerrainType = settings.TerrainTypes[i];
+                            mapData.ColorMap[x, y] = settings.TerrainTypes[i].Color;
+                            mapData.Hexes[x + y * settings.WorldWidth].TerrainType = settings.TerrainTypes[i];
 
                             break;
                         }

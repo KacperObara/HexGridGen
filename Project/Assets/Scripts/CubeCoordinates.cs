@@ -1,4 +1,5 @@
-﻿namespace HexGen
+﻿
+namespace HexGen
 {
     public struct CubeCoordinates
     {
@@ -11,6 +12,11 @@
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        public override string ToString()
+        {
+            return $"{x} {y} {z}";
         }
     }
 }

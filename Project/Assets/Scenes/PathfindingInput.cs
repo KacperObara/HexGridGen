@@ -2,6 +2,7 @@
 using HexGen;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 namespace PathfindingExample
 {
@@ -41,7 +42,7 @@ namespace PathfindingExample
             {
                 if (hit.transform.GetComponent<Generator>())
                 {
-                    Hex hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().HexGrid.Hexes);
+                    Hex hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
 
                     if (click == MouseClick.Left)
                     {
@@ -54,7 +55,8 @@ namespace PathfindingExample
 
                     if (startNode != null && endNode != null)
                     {
-                        List<Hex> hexes = GetComponent<Pathfinding>().Search(startNode, endNode);
+                        List<Hex> hexes = GetComponent<PathfindingJobs>().Search(startNode, endNode);
+
                         Vector3[] positions = hexes.Select(x => x.WorldPos).ToArray();
 
                         Destroy(start);

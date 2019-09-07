@@ -2,13 +2,14 @@
 
 namespace HexGen
 {
-    [CreateAssetMenu (menuName = "Terrain Type")]
-    public class TerrainType : ScriptableObject
+    [System.Serializable]
+    public class TerrainType
     {
+        public string Name;
         public float NoiseHeight;
         public Color Color;
 
-        public int movementCost;
+        public int MovementCost;
 
         public bool Passable;
     }

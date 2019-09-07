@@ -1,28 +1,26 @@
 ﻿using ExtensionMethods;
-using HexGen;
-using System;
 using UnityEngine;
 
 namespace HexGen
 {
-    public class Hex
+    public class Hex : ScriptableObject
     {
         public Vector2Int LocalPos { get; private set; }
         public AxialCoordinates AxialLocalPos
         {
-            get { return HexInfo.OffsetToAxial(LocalPos.x, LocalPos.y); }
+            get { return HexInfo.LocalToAxial(LocalPos.x, LocalPos.y); }
             private set { }
         }
 
         public CubeCoordinates CubeLocalPos
         {
-            get { return HexInfo.AxialToCube(HexInfo.OffsetToAxial(LocalPos.x, LocalPos.y)); }
+            get { return HexInfo.AxialToCube(HexInfo.LocalToAxial(LocalPos.x, LocalPos.y)); }
             private set { }
         }
 
         public Vector3 WorldPos { get; private set; }
 
-        public Hex(Vector2Int localPos, Vector3 worldPosition)
+        public void Initialize(Vector2Int localPos, Vector3 worldPosition)
         {
             this.LocalPos = localPos;
             this.WorldPos = worldPosition;
@@ -30,7 +28,6 @@ namespace HexGen
 
         public TerrainType TerrainType;
 
-        [SerializeField]
         private Hex[] neighbors = new Hex[6];
 
         public Hex GetNeighbor(HexDirection direction)

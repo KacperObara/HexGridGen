@@ -1,40 +1,34 @@
 ﻿using UnityEngine;
 using ExtensionMethods;
+using UnityEditor;
 
 namespace HexGen
 {
     [CreateAssetMenu]
-    public class GridGenerator : GridGen
+    public class GridGenerator : Gen
     {
-        private HexGrid grid;
+        private MapData mapData;
+        private MapSettings settings;
 
         private void Validate()
         {
-            if (grid.WorldHeight <= 0)
+            if (settings.WorldHeight <= 0)
             {
-                grid.WorldHeight = 1;
+                settings.WorldHeight = 1;
                 Debug.LogWarning("World Height can't be < 1. Changing to 1");
             }
 
-            if (grid.WorldWidth <= 0)
+            if (settings.WorldWidth <= 0)
             {
-                grid.WorldWidth = 1;
+                settings.WorldWidth = 1;
                 Debug.LogWarning("World Width can't be < 1. Changing to 1");
             }
         }
 
-        //void Start()
-        //{
-        //    if (grid.Hexes == null)
-        //    {
-        //        Validate();
-        //        CreateGrid();
-        //    }
-        //}
-
         public override void Initialize(Generator generator)
         {
-            this.grid = generator.HexGrid;
+            this.mapData = generator.MapData;
+            this.settings = generator.MapSettings;
         }
 
         public override void Generate()
@@ -45,21 +39,46 @@ namespace HexGen
 
         private void CreateGrid()
         {
-            grid.Hexes = new Hex[grid.WorldWidth * grid.WorldHeight];
+            mapData.Hexes = new Hex[settings.WorldWidth * settings.WorldHeight];
+            CreateHexes();
+        }
 
+        private void CreateHexes()
+        {
+            ClearHexes();
             int i = 0;
-            for (int z = 0; z < grid.WorldHeight; ++z)
+            for (int z = 0; z < settings.WorldHeight; ++z)
             {
-                for (int x = 0; x < grid.WorldWidth; ++x)
+                for (int x = 0; x < settings.WorldWidth; ++x)
                 {
                     CreateHex(x, z, i++);
                 }
             }
         }
 
+        public void ClearHexes()
+        {
+            var path = AssetDatabase.GetAssetPath(this);
+            Object[] assets = AssetDatabase.LoadAllAssetRepresentationsAtPath(path);
+            for (int j = 0; j < assets.Length; ++j)
+            {
+                var subAssetPath = AssetDatabase.GetAssetPath(assets[j]);
+                AssetDatabase.DeleteAsset(subAssetPath);
+            }
+        }
+
         private void CreateHex(int x, int z, int i)
         {
-            grid.Hexes[i] = new Hex(new Vector2Int(x, z), CalcHexWorldPos(x, z));
+            // https://answers.unity.com/questions/644316/custom-inspector-scriptableobject-list-shows-type.html
+            // It's solution to the problem with "serialization depth limit 7 exceeded"
+            // I changed Hex script to inherit from ScriptableObject. With lines below, I can skip creating asset for every hex
+            mapData.Hexes[i] = CreateInstance<Hex>();
+            string _path = AssetDatabase.GetAssetPath(this.GetInstanceID());
+            AssetDatabase.AddObjectToAsset(mapData.Hexes[i], _path);
+            mapData.Hexes[i].hideFlags = HideFlags.HideInHierarchy;
+
+            mapData.Hexes[i].Initialize(new Vector2Int(x, z), CalcHexWorldPos(x, z));
+
             PickNeighbors(x, z, i);
         }
 
@@ -67,24 +86,24 @@ namespace HexGen
         {
             if (i > 0)
             {
-                grid.Hexes[i].SetNeighbor(HexDirection.W, grid.Hexes[i - 1]);
+                mapData.Hexes[i].SetNeighbor(HexDirection.W, mapData.Hexes[i - 1]);
             }
             if (z > 0)
             {
                 if ((z & 1) == 0)
                 {
-                    grid.Hexes[i].SetNeighbor(HexDirection.SE, grid.Hexes[i - grid.WorldWidth]);
+                    mapData.Hexes[i].SetNeighbor(HexDirection.SE, mapData.Hexes[i - settings.WorldWidth]);
                     if (x > 0)
                     {
-                        grid.Hexes[i].SetNeighbor(HexDirection.SW, grid.Hexes[i - grid.WorldWidth - 1]);
+                        mapData.Hexes[i].SetNeighbor(HexDirection.SW, mapData.Hexes[i - settings.WorldWidth - 1]);
                     }
                 }
                 else
                 {
-                    grid.Hexes[i].SetNeighbor(HexDirection.SW, grid.Hexes[i - grid.WorldWidth]);
-                    if (x < grid.WorldWidth - 1)
+                    mapData.Hexes[i].SetNeighbor(HexDirection.SW, mapData.Hexes[i - settings.WorldWidth]);
+                    if (x < settings.WorldWidth - 1)
                     {
-                        grid.Hexes[i].SetNeighbor(HexDirection.SE, grid.Hexes[i - grid.WorldWidth + 1]);
+                        mapData.Hexes[i].SetNeighbor(HexDirection.SE, mapData.Hexes[i - settings.WorldWidth + 1]);
                     }
                 }
             }
@@ -99,8 +118,8 @@ namespace HexGen
             if (z.IsEven() == false)
                 pos.x += HexInfo.InnerRadius;
 
-            pos.x *= grid.offsetMultiplier;
-            pos.z *= grid.offsetMultiplier;
+            //pos.x *= grid.offsetMultiplier;
+            //pos.z *= grid.offsetMultiplier;
 
             return pos;
         }

@@ -5,9 +5,9 @@ using UnityEngine;
 namespace HexGen
 {
     [CreateAssetMenu]
-    public class HexMeshGen : MeshGen
+    public class HexMeshGen : Gen
     {
-        private HexGrid grid;
+        private MapData mapData;
         private Mesh mesh;
         private MeshCollider meshCollider;
 
@@ -17,7 +17,7 @@ namespace HexGen
 
         public override void Initialize(Generator generator)
         {
-            this.grid = generator.HexGrid;
+            this.mapData = generator.MapData;
             this.meshCollider = generator.GetComponent<MeshCollider>();
 
             vertices = new List<Vector3>();
@@ -36,9 +36,9 @@ namespace HexGen
         {
             ClearMesh();
 
-            foreach (Hex cell in grid.Hexes)
+            foreach (Hex cell in mapData.Hexes)
             {
-                CreateHexagon(cell.WorldPos, grid.ColorMap[cell.LocalPos.x, cell.LocalPos.y]);
+                CreateHexagon(cell.WorldPos, mapData.ColorMap[cell.LocalPos.x, cell.LocalPos.y]);
             }
 
             ApplyMesh();

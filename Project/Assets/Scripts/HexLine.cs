@@ -6,7 +6,7 @@ namespace HexGen
 {
     public class HexLine : MonoBehaviour
     {
-        public HexGrid grid;
+        public MapData MapData;
 
         private float Lerp(float first, float second, float time)
         {
@@ -29,7 +29,7 @@ namespace HexGen
             for (int i = 0; i < length; i++)
             {
                 Vector3 coords = CubeLerp(start, end, 1.0f / length * i);
-                hexes.Add(HexInfo.PixelToHex(coords, grid.Hexes));
+                hexes.Add(HexInfo.PixelToHex(coords, MapData.Hexes));
             }
 
             return hexes;
