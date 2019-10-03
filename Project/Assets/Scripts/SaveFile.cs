@@ -8,5 +8,8 @@ namespace HexGen
     {
         [HideInInspector]
         public string SettingsData;
+
+        [HideInInspector]
+        public string EditedMapTextureData;
     }
 }

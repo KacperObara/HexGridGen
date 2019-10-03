@@ -12,37 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b04db0e06031d41a4a070742395f6a, type: 3}
   m_Name: MapSettings
   m_EditorClassIdentifier: 
-  WorldWidth: 100
-  WorldHeight: 100
+  WorldWidth: 25
+  WorldHeight: 25
   Scale: 20
   Octaves: 4
   Persistance: 0.5
   Lacunarity: 1.87
   Seed: 0
-  ActualSeed: 203903
+  ActualSeed: 864705
   TerrainTypes:
   - Name: Water
     NoiseHeight: 0.25
-    Color: {r: 0.16470589, g: 0.5568628, b: 0.9450981, a: 0}
     MovementCost: 0
     Passable: 0
   - Name: Sand
     NoiseHeight: 0.32
-    Color: {r: 0.53333336, g: 0.5372549, b: 0.29411766, a: 0}
     MovementCost: 3
     Passable: 1
   - Name: Grass
     NoiseHeight: 0.68
-    Color: {r: 0.098039225, g: 0.5411765, b: 0.13333334, a: 0}
     MovementCost: 2
     Passable: 1
   - Name: Mountains
     NoiseHeight: 0.85
-    Color: {r: 0.56078434, g: 0.5882353, b: 0.6313726, a: 0}
     MovementCost: 7
     Passable: 1
   - Name: Snow
     NoiseHeight: 1
-    Color: {r: 0.8941177, g: 0.9333334, b: 0.9960785, a: 0}
     MovementCost: 0
     Passable: 0

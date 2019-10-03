@@ -9,10 +9,16 @@ namespace HexGen
     {
         [HideInInspector]
         public float[,] HeightMap;
+
         [HideInInspector]
-        public Color[,] ColorMap;
+        public int[] TextureIndex;
 
         [HideInInspector]
         public Hex[] Hexes;
+
+        //public void Load(SaveFile saveFile)
+        //{
+        //    this.TextureIndex = saveFile.EditedMapTextureData;
+        //}
     }
 }

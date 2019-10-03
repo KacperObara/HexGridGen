@@ -6,7 +6,12 @@ namespace HexGen
 {
     public class Generator : MonoBehaviour
     {
-        public List<Gen> generators;
+        [SerializeField]
+        private GridGenerator gridGenerator;
+        [SerializeField]
+        private NoiseGenerator noiseGenerator;
+        [SerializeField]
+        public MeshGenerator meshGenerator;
 
         public MapData MapData;
         public MapSettings MapSettings;
@@ -16,15 +21,13 @@ namespace HexGen
 
         public void Generate()
         {
-            foreach (Gen generator in generators)
-            {
-                generator.Initialize(this);
-            }
+            gridGenerator.Initialize(this);
+            noiseGenerator.Initialize(this);
+            meshGenerator.Initialize(this);
 
-            foreach (Gen generator in generators)
-            {
-                generator.Generate();
-            }
+            gridGenerator.Generate();
+            noiseGenerator.Generate();
+            meshGenerator.Generate();
         }
 
         public void LoadMap()
@@ -35,14 +38,19 @@ namespace HexGen
                 return;
             }
 
-            MapSettings.Load(SaveManager.Load(SaveFile));
+            MapSettings.Load(SaveManager.LoadMapSettings(SaveFile));
             Generate();
+
+            SaveManager.LoadEditedMapTextureData(SaveFile, ref MapData);
+            Debug.Log(MapData.TextureIndex[0]);
+            meshGenerator.Generate();
         }
 
         public void ClearMap()
         {
-            GridGenerator g = generators[0] as GridGenerator;
-            g.ClearHexes();
+            gridGenerator.Clear();
+            noiseGenerator.Clear();
+            meshGenerator.Clear();
         }
 
         public void SaveMap()

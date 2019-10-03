@@ -7,7 +7,6 @@ namespace HexGen
     {
         public string Name;
         public float NoiseHeight;
-        public Color Color;
 
         public int MovementCost;
 

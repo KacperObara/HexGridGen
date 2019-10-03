@@ -25,7 +25,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (hit.transform.GetComponent<Generator>())
             {
-                hex = HexInfo.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
+                hex = HexData.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
                 Debug.Assert(hex != null);
             }
         }
