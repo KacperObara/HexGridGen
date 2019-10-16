@@ -5,6 +5,7 @@ namespace HexGen
     [System.Serializable]
     public class TerrainType
     {
+        public int TextureIndex;
         public string Name;
         public float NoiseHeight;
 

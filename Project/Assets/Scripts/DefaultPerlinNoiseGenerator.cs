@@ -52,7 +52,6 @@ namespace HexGen
             float offset = PickGenerationSeed();
 
             mapData.HeightMap = new float[settings.WorldWidth, settings.WorldHeight];
-            mapData.TextureIndex = new int[settings.WorldWidth * settings.WorldHeight];
 
             float maxNoiseHeight = float.MinValue;
             float minNoiseHeight = float.MaxValue;
@@ -118,9 +117,7 @@ namespace HexGen
                     {
                         if (currentHeight <= settings.TerrainTypes[i].NoiseHeight)
                         {
-                            mapData.TextureIndex[x + y * settings.WorldWidth] = i;
-
-                            mapData.Hexes[x + y * settings.WorldWidth].TerrainType = settings.TerrainTypes[i];
+                            mapData.ChangeHexTerrainType(x + y * settings.WorldWidth, settings.TerrainTypes[i]);
 
                             break;
                         }

@@ -8,6 +8,7 @@ public class MapEditor : MonoBehaviour
     public Vector2Int Pos;
     public int TerrainIndex;
     private Generator generator;
+
     void Start()
     {
         generator = GetComponent<Generator>();
@@ -32,8 +33,8 @@ public class MapEditor : MonoBehaviour
             if (hit.transform.GetComponent<Generator>())
             {
                 Pos = HexData.PixelToHex(hit.point, generator.MapData.Hexes).LocalPos;
-                generator.MapData.TextureIndex[Pos.x + mapSettings.WorldWidth * Pos.y] = TerrainIndex;
-                generator.meshGenerator.Generate();
+                generator.MapData.ChangeHexTerrainType(Pos.x + mapSettings.WorldWidth * Pos.y, mapSettings.TerrainTypes[TerrainIndex]);
+                generator.UpdateMesh();
             }
         }
     }

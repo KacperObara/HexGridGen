@@ -19,25 +19,30 @@ MonoBehaviour:
   Persistance: 0.5
   Lacunarity: 1.87
   Seed: 0
-  ActualSeed: 864705
+  ActualSeed: 443822
   TerrainTypes:
-  - Name: Water
+  - TextureIndex: 0
+    Name: Water
     NoiseHeight: 0.25
     MovementCost: 0
     Passable: 0
-  - Name: Sand
+  - TextureIndex: 1
+    Name: Sand
     NoiseHeight: 0.32
     MovementCost: 3
     Passable: 1
-  - Name: Grass
+  - TextureIndex: 2
+    Name: Grass
     NoiseHeight: 0.68
     MovementCost: 2
     Passable: 1
-  - Name: Mountains
+  - TextureIndex: 3
+    Name: Mountains
     NoiseHeight: 0.85
     MovementCost: 7
     Passable: 1
-  - Name: Snow
+  - TextureIndex: 4
+    Name: Snow
     NoiseHeight: 1
     MovementCost: 0
     Passable: 0

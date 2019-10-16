@@ -3,12 +3,15 @@ using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Converters;
 using UnityEditor;
+using System;
 
 namespace HexGen
 {
     public class SaveManager
     {
         private static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/";
+
+        private static JsonSerializerSettings serializerSettings = new JsonSerializerSettings { ObjectCreationHandling = ObjectCreationHandling.Replace };
 
         static SaveManager()
         {
@@ -21,7 +24,7 @@ namespace HexGen
         public static void Save(Generator generator)
         {
             string json = JsonConvert.SerializeObject(generator.MapSettings);
-            string jsonMapData = JsonConvert.SerializeObject(generator.MapData.TextureIndex);
+            string jsonMapData = JsonConvert.SerializeObject(new TextureDataObject(generator.MapData.GetAllTerrainIndexes()));
 
             SaveFile saveFile = ScriptableObject.CreateInstance<SaveFile>();
             saveFile.SettingsData = json;
@@ -40,18 +43,12 @@ namespace HexGen
             return settings;
         }
 
-        public static void LoadEditedMapTextureData(SaveFile saveFile, ref MapData mapData)
+        public static void LoadEditedMapTextureData(SaveFile saveFile, ref MapData mapData, MapSettings mapSettings)
         {
-            int[] indexes = new int[mapData.TextureIndex.Length];
-            JsonConvert.PopulateObject(saveFile.EditedMapTextureData, indexes);
-            JsonConvert.PopulateObject(saveFile.EditedMapTextureData, mapData.TextureIndex);
+            TextureDataObject tempObject = new TextureDataObject(new int[mapData.Hexes.Length]);
+            JsonConvert.PopulateObject(saveFile.EditedMapTextureData, tempObject, serializerSettings);
 
-            Debug.Log("D: " + indexes[0]);
-
-            //MapData mapData = ScriptableObject.CreateInstance<MapData>();
-
-            //JsonConvert.PopulateObject(saveFile.EditedMapTextureData, mapData);
-            //return mapData;
+            mapData.LoadTerrainData(mapSettings, tempObject.Indexes);
         }
 
         private static string PickFileName()
@@ -67,6 +64,19 @@ namespace HexGen
                 path = $"Assets/Saves/Save({i}).asset";
             }
             return path;
+        }
+
+        /// <summary>
+        /// Temporary class holding texture indexes, because JsonConvert.PopulateObject
+        /// cannot serialize array of primitives
+        /// </summary>
+        private class TextureDataObject
+        {
+            public int[] Indexes;
+            public TextureDataObject(int[] indexes)
+            {
+                this.Indexes = indexes;
+            }
         }
     }
 }

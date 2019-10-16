@@ -24,6 +24,10 @@ namespace HexGen
             {
                 generator.Generate();
             }
+            if (GUILayout.Button("Update mesh"))
+            {
+                generator.UpdateMesh();
+            }
             GUILayout.Space(12);
             if (GUILayout.Button("Clear map"))
             {

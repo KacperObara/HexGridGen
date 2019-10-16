@@ -44,7 +44,8 @@ namespace HexGen
 
             foreach (Hex cell in mapData.Hexes)
             {
-                CreateHexagon(cell.WorldPos, mapData.TextureIndex[cell.LocalPos.x + cell.LocalPos.y * mapSettings.WorldWidth]);
+                CreateHexagon(cell.WorldPos, mapData.Hexes[cell.LocalPos.x + cell.LocalPos.y * mapSettings.WorldWidth]
+                                            .TerrainType.TextureIndex);
             }
 
             ApplyMesh();

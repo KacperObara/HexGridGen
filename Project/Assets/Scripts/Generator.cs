@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace HexGen
@@ -11,13 +12,31 @@ namespace HexGen
         [SerializeField]
         private NoiseGenerator noiseGenerator;
         [SerializeField]
-        public MeshGenerator meshGenerator;
+        private MeshGenerator meshGenerator;
 
         public MapData MapData;
         public MapSettings MapSettings;
 
         [Space]
         public SaveFile SaveFile;
+
+
+//#if UNITY_EDITOR
+//        void Start()
+//        {
+//            EditorApplication.playModeStateChanged += OnEnteringEditor;
+//        }
+
+//        private void OnEnteringEditor(PlayModeStateChange state)
+//        {
+//            if (state == PlayModeStateChange.EnteredEditMode)
+//            {
+//                Generator g = this;
+//                g.GetComponent<MeshCollider>();
+//                UpdateMesh();
+//            }
+//        }
+//#endif
 
         public void Generate()
         {
@@ -27,6 +46,13 @@ namespace HexGen
 
             gridGenerator.Generate();
             noiseGenerator.Generate();
+
+            UpdateMesh();
+        }
+
+        public void UpdateMesh()
+        {
+            meshGenerator.Initialize(this);
             meshGenerator.Generate();
         }
 
@@ -41,9 +67,9 @@ namespace HexGen
             MapSettings.Load(SaveManager.LoadMapSettings(SaveFile));
             Generate();
 
-            SaveManager.LoadEditedMapTextureData(SaveFile, ref MapData);
-            Debug.Log(MapData.TextureIndex[0]);
-            meshGenerator.Generate();
+            SaveManager.LoadEditedMapTextureData(SaveFile, ref MapData, MapSettings);
+
+            UpdateMesh();
         }
 
         public void ClearMap()

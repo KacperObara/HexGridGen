@@ -85,7 +85,8 @@ namespace HexGen
 
         private void PickNeighbors(int x, int z, int i)
         {
-            if (i > 0)
+            // Modifing this if can result in (going around the world) behaviour
+            if (x > 0)
             {
                 mapData.Hexes[i].SetNeighbor(HexDirection.W, mapData.Hexes[i - 1]);
             }
