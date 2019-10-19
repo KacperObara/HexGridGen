@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMovable
+namespace HexGen
 {
-    int Range { get; set; }
+    public interface IMovable
+    {
+        int Range { get; set; }
+        Hex OccupiedHex { get; set; }
+    }
 }
