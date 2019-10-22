@@ -26,6 +26,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid
       objectReference: {fileID: 0}
+    - target: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 740b862bf93aa5a4790fdef72b1d43cc, type: 2}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: SaveFile
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f8f1cc2ec8dd6642af221624f538492,
+        type: 2}
     - target: {fileID: 5291780236302377662, guid: 658bb25a9eaf10340a90b433ac91834b,
         type: 3}
       propertyPath: m_LocalPosition.x

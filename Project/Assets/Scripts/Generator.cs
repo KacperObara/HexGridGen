@@ -24,6 +24,7 @@ namespace HexGen
 //#if UNITY_EDITOR
 //        void Start()
 //        {
+//            DontDestroyOnLoad(this.gameObject);
 //            EditorApplication.playModeStateChanged += OnEnteringEditor;
 //        }
 
