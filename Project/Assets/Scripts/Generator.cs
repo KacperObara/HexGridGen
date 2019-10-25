@@ -14,6 +14,8 @@ namespace HexGen
         [SerializeField]
         private MeshGenerator meshGenerator;
 
+        public ShaderManager shaderManager;
+
         public MapData MapData;
         public MapSettings MapSettings;
 

@@ -12,19 +12,19 @@ namespace HexGen
         private MapData mapData;
         private Mesh mesh;
         private MeshCollider meshCollider;
+        private ShaderManager shaderManager;
 
         private List<Vector3> vertices;
         private List<int> triangles;
 
         private List<Vector2> uvs;
 
-        private int textureSize = 590; // Make it a variable for user later 
-
         public override void Initialize(Generator generator)
         {
             this.mapData = generator.MapData;
             this.mapSettings = generator.MapSettings;
             this.meshCollider = generator.GetComponent<MeshCollider>();
+            this.shaderManager = generator.shaderManager;
 
             vertices = new List<Vector3>();
             triangles = new List<int>();
@@ -111,25 +111,35 @@ namespace HexGen
 
         private void SetUVs(int index)
         {
-            int indexX = index % 3;
-            int indexY = index / 3;
+            int TexCount = shaderManager.TexturesInARow;
+            int TexSize = shaderManager.SingleTextureSize;
 
-            uvs.Add(ConvertPixelsToUVCoords(256 + (indexX * textureSize), 295 + (indexY * textureSize)));
-            uvs.Add(ConvertPixelsToUVCoords(256 + (indexX * textureSize), 0 + (indexY * textureSize)));
+            int indexX = index % TexCount;
+            int indexY = index / TexCount;
 
-            uvs.Add(ConvertPixelsToUVCoords(1 + (indexX * textureSize), 148 + (indexY * textureSize)));
-            uvs.Add(ConvertPixelsToUVCoords(1 + (indexX * textureSize), 442 + (indexY * textureSize)));
+            uvs.Add(ConvertPixelsToUVCoords((indexX * TexSize) + (TexSize / 2),
+                                            (indexY * TexSize) + (TexSize / 2)));
 
-            uvs.Add(ConvertPixelsToUVCoords(256 + (indexX * textureSize), 590 + (indexY * textureSize)));
+            uvs.Add(ConvertPixelsToUVCoords((indexX * TexSize) + (TexSize / 2),
+                                            (indexY * TexSize)));
 
-            uvs.Add(ConvertPixelsToUVCoords(511 + (indexX * textureSize), 442 + (indexY * textureSize)));
-            uvs.Add(ConvertPixelsToUVCoords(511 + (indexX * textureSize), 148 + (indexY * textureSize)));
+            uvs.Add(ConvertPixelsToUVCoords((indexX * TexSize) + (TexSize),
+                                            (indexY * TexSize) + (int)(TexSize * 0.25)));
+            uvs.Add(ConvertPixelsToUVCoords((indexX * TexSize) + (TexSize),
+                                            (indexY * TexSize) + (int)(TexSize * 0.75)));
+
+            uvs.Add(ConvertPixelsToUVCoords((indexX * TexSize) + (TexSize / 2),
+                                            (indexY * TexSize) + (TexSize)));
+
+            uvs.Add(ConvertPixelsToUVCoords((indexX * TexSize),
+                                            (indexY * TexSize) + (int)(TexSize * 0.75)));
+            uvs.Add(ConvertPixelsToUVCoords((indexX * TexSize),
+                                            (indexY * TexSize) + (int)(TexSize * 0.25)));
         }
 
         private Vector2 ConvertPixelsToUVCoords(int x, int y)
         {
-            int atlasSize = 3 * textureSize;
-            return new Vector2((float)x / atlasSize, (float)y / atlasSize);
+            return new Vector2((float)x / shaderManager.AtlasSize, (float)y / shaderManager.AtlasSize);
         }
     }
 }
