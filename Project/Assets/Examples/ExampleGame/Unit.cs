@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using HexGen;
 
-public class Unit : MonoBehaviour, IMovable
+namespace HexGenExampleGame1
 {
-    int range;
-    Hex occupiedHex;
-
-    public int Range { get => range; set => range = value; }
-    public Hex OccupiedHex { get => occupiedHex; set => occupiedHex = value; }
-
-    public void Initialize(Hex occupiedHex, int range)
+    public class Unit : MonoBehaviour, IMovable
     {
-        this.OccupiedHex = occupiedHex;
-        this.Range = range;
+        public int range;
+        public Hex occupiedHex;
+
+        public int Range { get => range; set => range = value; }
+        public Hex OccupiedHex { get => occupiedHex; set => occupiedHex = value; }
+
+        public void Initialize(Hex occupiedHex, int range)
+        {
+            this.OccupiedHex = occupiedHex;
+            this.Range = range;
+        }
     }
 }

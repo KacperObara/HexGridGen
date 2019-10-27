@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
-public class UnitsManager : ScriptableObject
+namespace HexGenExampleGame1
 {
-    public GameObject playerUnit;
-    public GameObject enemyUnit;
+    [CreateAssetMenu]
+    public class UnitsManager : ScriptableObject
+    {
+        public GameObject playerUnit;
+        public GameObject enemyUnit;
 
-    public List<Unit> playerUnits;
-    public List<Unit> enemyUnits;
+        public List<Unit> playerUnits;
+        public List<Unit> enemyUnits;
+
+        void OnDisable()
+        {
+            playerUnits.Clear();
+            enemyUnits.Clear();
+        }
+    }
 }

@@ -3,12 +3,13 @@ using UnityEngine;
 
 namespace HexGen
 {
-    public class Pathfinding : MonoBehaviour
+    [CreateAssetMenu(fileName = "AStarPathfinding", menuName = "Pathfinding/A*")]
+    public class AStarPathfinding : Pathfinding
     {
         /// <summary>
         /// Returns Path from startNode to endNode (including both)
         /// </summary>
-        public List<Hex> Search(Hex startNode, Hex endNode)
+        public override List<Hex> Search(Hex startNode, Hex endNode)
         {
             if (startNode.TerrainType.Passable == false || endNode.TerrainType.Passable == false || startNode == endNode)
                 return new List<Hex>();
@@ -71,7 +72,7 @@ namespace HexGen
             return new List<Hex>();
         }
 
-        HexNode GetLowestDist(List<HexNode> openList, Hex startNode, Hex endNode)
+        private HexNode GetLowestDist(List<HexNode> openList, Hex startNode, Hex endNode)
         {
             HexNode currentNode = null;
             int lowestF = int.MaxValue;

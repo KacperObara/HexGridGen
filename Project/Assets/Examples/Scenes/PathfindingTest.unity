@@ -238,36 +238,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 723552262}
-    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: SaveFile
-      value: 
-      objectReference: {fileID: 11400000, guid: 2f8f1cc2ec8dd6642af221624f538492,
-        type: 2}
-    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: noiseGenerator
-      value: 
-      objectReference: {fileID: 11400000, guid: 811e4251fb88ef34b9177ed6e527d1e7,
-        type: 2}
-    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: meshGenerator
-      value: 
-      objectReference: {fileID: 11400000, guid: fde433070a2f5b049aae701d8bb309c4,
-        type: 2}
-    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: MapData
-      value: 
-      objectReference: {fileID: 11400000, guid: 32e53d4083833aa4f8f67cfbb1c40e9d,
-        type: 2}
-    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: MapSettings
-      value: 
-      objectReference: {fileID: 11400000, guid: 1444565f3653e8f44ba650731fd834b7,
-        type: 2}
     - target: {fileID: 5291780236302377662, guid: 658bb25a9eaf10340a90b433ac91834b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -323,6 +293,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: SaveFile
+      value: 
+      objectReference: {fileID: 11400000, guid: 2f8f1cc2ec8dd6642af221624f538492,
+        type: 2}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: noiseGenerator
+      value: 
+      objectReference: {fileID: 11400000, guid: 811e4251fb88ef34b9177ed6e527d1e7,
+        type: 2}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: meshGenerator
+      value: 
+      objectReference: {fileID: 11400000, guid: fde433070a2f5b049aae701d8bb309c4,
+        type: 2}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: MapData
+      value: 
+      objectReference: {fileID: 11400000, guid: 32e53d4083833aa4f8f67cfbb1c40e9d,
+        type: 2}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: MapSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 1444565f3653e8f44ba650731fd834b7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 658bb25a9eaf10340a90b433ac91834b, type: 3}
 --- !u!43 &723552262
@@ -589,7 +589,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1784693700}
   - component: {fileID: 1784693699}
-  - component: {fileID: 1784693703}
   - component: {fileID: 1784693701}
   m_Layer: 0
   m_Name: PathLine
@@ -720,15 +719,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Selection: {fileID: 5435795201691138923, guid: 44fdd1ac48c018c4d836f1c06645e055,
     type: 3}
---- !u!114 &1784693703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784693698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5d4d771d844fec4cbbfcfedafbd9b71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

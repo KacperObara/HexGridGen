@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using HexGen;
 
-public class PlayerSpawner : MonoBehaviour
+namespace HexGenExampleGame1
 {
-    public UnitsManager unitsManager;
-
-    public int PlayerTanks;
-
-    public void OnHexClick(Hex hex)
+    public class PlayerSpawner : MonoBehaviour
     {
-        if (unitsManager.playerUnits.Count < PlayerTanks)
+        public UnitsManager unitsManager;
+
+        public int PlayerTanks;
+
+        public void OnHexClick(Hex hex)
         {
-            SpawnTank(hex);
+            if (unitsManager.playerUnits.Count < PlayerTanks)
+            {
+                SpawnTank(hex);
+            }
         }
-    }
 
-    private void SpawnTank(Hex hex)
-    {
-        Unit newTank = Instantiate(unitsManager.playerUnit, hex.WorldPos, Quaternion.identity).GetComponent<Unit>();
-        newTank.Initialize(hex, 5);
-        unitsManager.playerUnits.Add(newTank);
+        private void SpawnTank(Hex hex)
+        {
+            Unit newTank = Instantiate(unitsManager.playerUnit, hex.WorldPos, Quaternion.identity).GetComponent<Unit>();
+            newTank.Initialize(hex, 5);
+            unitsManager.playerUnits.Add(newTank);
+        }
     }
 }

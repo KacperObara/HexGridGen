@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using Unity.Jobs;
-using UnityEngine;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace HexGen
 {
-    public class PathfindingWithJobsSystem : MonoBehaviour
+    [CreateAssetMenu(fileName = "AStarPathfindingWithJobs", menuName = "Pathfinding/A*Jobs")]
+    public class AStarPathfindingJobs : Pathfinding
     {
         /// <summary>
         /// Returns Path from startNode to endNode (including both)
         /// </summary>
-        public List<Hex> Search(Hex startNode, Hex endNode)
+        public override List<Hex> Search(Hex startNode, Hex endNode)
         {
             if (startNode.TerrainType.Passable == false || endNode.TerrainType.Passable == false || startNode == endNode)
                 return new List<Hex>();
@@ -75,7 +76,7 @@ namespace HexGen
             return new List<Hex>();
         }
 
-        HexNode GetLowestDist(List<HexNode> openList, Hex startNode, Hex endNode)
+        private HexNode GetLowestDist(List<HexNode> openList, Hex startNode, Hex endNode)
         {
             NativeArray<int3> coords = new NativeArray<int3>(openList.Count, Allocator.TempJob);
             NativeArray<int> coordsMovementCost = new NativeArray<int>(openList.Count, Allocator.TempJob);
@@ -152,7 +153,7 @@ namespace HexGen
     }
 
     [BurstCompile]
-    public struct GetLowestDistanceJob : IJobParallelFor
+    struct GetLowestDistanceJob : IJobParallelFor
     {
         [ReadOnly] public NativeArray<int3> coords;
         [ReadOnly] public NativeArray<int> coordsMovementCost;

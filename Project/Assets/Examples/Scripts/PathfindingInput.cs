@@ -14,6 +14,7 @@ namespace PathfindingExample
         }
 
         public GameObject Selection;
+        public Pathfinding pathfinding;
 
         GameObject start;
         GameObject end;
@@ -55,7 +56,7 @@ namespace PathfindingExample
 
                     if (startNode != null && endNode != null)
                     {
-                        List<Hex> hexes = GetComponent<PathfindingWithJobsSystem>().Search(startNode, endNode);
+                        List<Hex> hexes = pathfinding.Search(startNode, endNode);
 
                         Vector3[] positions = hexes.Select(x => x.WorldPos).ToArray();
 
