@@ -13,6 +13,10 @@ namespace HexGenExampleGame1
         public List<Unit> playerUnits;
         public List<Unit> enemyUnits;
 
+        public List<GameObject> spawnerHexes;
+
+        public Unit SelectedUnit;
+
         void OnDisable()
         {
             playerUnits.Clear();

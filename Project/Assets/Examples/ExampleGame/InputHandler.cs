@@ -19,7 +19,6 @@ namespace HexGen
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.transform.GetComponent<Generator>())

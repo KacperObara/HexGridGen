@@ -107,8 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02d91ab2640322438cd37ea35ea19f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Shader: {fileID: -6465566751694194690, guid: c4b3cb2c21a6dd84a883466b5ec132cf, type: 3}
   Texture: {fileID: 2800000, guid: 5e8edd3e967c2b14eba52bb6f0bb62b6, type: 3}
+  SingleTextureSize: 590
+  AtlasSize: 1770
+  TexturesInARow: 3
+  Shader: {fileID: -6465566751694194690, guid: c4b3cb2c21a6dd84a883466b5ec132cf, type: 3}
+  Material: {fileID: 2100000, guid: 740b862bf93aa5a4790fdef72b1d43cc, type: 2}
 --- !u!114 &5291780236302377665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +128,7 @@ MonoBehaviour:
   gridGenerator: {fileID: 11400000, guid: 7940b61687992dd45ad39a6e763ec1fb, type: 2}
   noiseGenerator: {fileID: 11400000, guid: 811e4251fb88ef34b9177ed6e527d1e7, type: 2}
   meshGenerator: {fileID: 11400000, guid: fde433070a2f5b049aae701d8bb309c4, type: 2}
+  shaderManager: {fileID: 470171847350359387}
   MapData: {fileID: 11400000, guid: 32e53d4083833aa4f8f67cfbb1c40e9d, type: 2}
   MapSettings: {fileID: 11400000, guid: 1444565f3653e8f44ba650731fd834b7, type: 2}
   SaveFile: {fileID: 0}

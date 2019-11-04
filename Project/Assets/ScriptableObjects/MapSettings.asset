@@ -19,7 +19,7 @@ MonoBehaviour:
   Persistance: 0.5
   Lacunarity: 1.87
   Seed: 0
-  ActualSeed: 443822
+  ActualSeed: 119718
   TerrainTypes:
   - TextureIndex: 0
     Name: Water

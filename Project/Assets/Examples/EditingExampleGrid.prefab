@@ -26,17 +26,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid
       objectReference: {fileID: 0}
-    - target: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: Material
-      value: 
-      objectReference: {fileID: 2100000, guid: 740b862bf93aa5a4790fdef72b1d43cc, type: 2}
-    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: SaveFile
-      value: 
-      objectReference: {fileID: 11400000, guid: 2f8f1cc2ec8dd6642af221624f538492,
-        type: 2}
     - target: {fileID: 5291780236302377662, guid: 658bb25a9eaf10340a90b433ac91834b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -92,6 +81,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: SingleTextureSize
+      value: 590
+      objectReference: {fileID: 0}
+    - target: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: AtlasSize
+      value: 1770
+      objectReference: {fileID: 0}
+    - target: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: TexturesInARow
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 740b862bf93aa5a4790fdef72b1d43cc, type: 2}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: shaderManager
+      value: 
+      objectReference: {fileID: 4313130655111293108}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: SaveFile
+      value: 
+      objectReference: {fileID: 11400000, guid: eccb5b01f4dcf4b429459a29cc08faf6,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 658bb25a9eaf10340a90b433ac91834b, type: 3}
 --- !u!1 &8371379860505419600 stripped
@@ -100,3 +120,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4421747271552777711}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4313130655111293108 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4421747271552777711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8371379860505419600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02d91ab2640322438cd37ea35ea19f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

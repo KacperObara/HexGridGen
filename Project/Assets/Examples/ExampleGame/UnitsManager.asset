@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUnit: {fileID: 456946773236421741, guid: b18ac1f5547fd06479f2a8e4420fd588,
     type: 3}
-  enemyUnit: {fileID: 0}
+  enemyUnit: {fileID: 456946773236421741, guid: b18ac1f5547fd06479f2a8e4420fd588,
+    type: 3}
   playerUnits: []
   enemyUnits: []
+  spawnerHexes: []
+  SelectedUnit: {fileID: 0}

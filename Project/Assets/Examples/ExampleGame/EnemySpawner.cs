@@ -18,6 +18,7 @@ namespace HexGenExampleGame1
 
         public void CreateEnemySpawner()
         {
+            // Because we don't need to choose algorithm
             AStarPathfinding pathfinding = (AStarPathfinding)ScriptableObject.CreateInstance(typeof(AStarPathfinding));
 
             List<Hex> spawnerHexes = new List<Hex>();
@@ -46,7 +47,8 @@ namespace HexGenExampleGame1
 
             foreach (Hex hex in spawnerHexes)
             {
-                Instantiate(EnemySpawnerPrefab, hex.WorldPos, Quaternion.identity);
+                GameObject spawner = Instantiate(EnemySpawnerPrefab, hex.WorldPos, Quaternion.identity);
+                unitsManager.spawnerHexes.Add(spawner);
             }
         }
     }
