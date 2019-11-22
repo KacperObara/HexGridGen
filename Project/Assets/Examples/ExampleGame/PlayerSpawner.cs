@@ -7,23 +7,35 @@ namespace HexGenExampleGame1
 {
     public class PlayerSpawner : MonoBehaviour
     {
-        public UnitsManager unitsManager;
+        private BoardManager boardManager;
 
         public int PlayerTanks;
 
+        void Awake()
+        {
+            boardManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BoardManager>();
+        }
+
         public void OnHexClick(Hex hex)
         {
-            if (unitsManager.playerUnits.Count < PlayerTanks)
+            if (boardManager.GetPlayerUnits().Count < PlayerTanks)
             {
+                foreach (Unit unit in boardManager.ExistingUnits)
+                {
+                    if (unit.OccupiedHex.WorldPos == hex.WorldPos)
+                    {
+                        return;
+                    }
+                }
                 SpawnTank(hex);
             }
         }
 
         private void SpawnTank(Hex hex)
         {
-            Unit newTank = Instantiate(unitsManager.playerUnit, hex.WorldPos, Quaternion.identity).GetComponent<Unit>();
-            newTank.Initialize(hex, 5);
-            unitsManager.playerUnits.Add(newTank);
+            Unit newTank = Instantiate(boardManager.PlayerPrefab, hex.WorldPos, Quaternion.identity).GetComponent<Unit>();
+            newTank.Initialize(hex, Faction.Player);
+            boardManager.ExistingUnits.Add(newTank);
         }
     }
 }

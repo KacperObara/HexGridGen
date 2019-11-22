@@ -54,6 +54,7 @@ namespace LineDrawingExample
                     if (startNode != null && endNode != null)
                     {
                         List<Hex> hexes = GetComponent<HexLine>().GetHexLine(startNode, endNode);
+                        
                         Vector3[] positions = hexes.Select(x => x.WorldPos).ToArray();
 
                         for (int i = line.Count - 1; i >= 0; --i)

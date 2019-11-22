@@ -3,7 +3,7 @@ using UnityEngine;
 using HexGen;
 using System.Linq;
 
-public class Range : MonoBehaviour
+public class HexRange : MonoBehaviour
 {
     /// <summary>
     /// 
@@ -11,7 +11,7 @@ public class Range : MonoBehaviour
     /// <param name="startNode">Node at which IMovable starts moving</param>
     /// <param name="IMovable">Object that can move through the hexes</param>
     /// <returns></returns>
-    public List<Hex> GetHexesInRange(Hex startNode, IMovable IMovable)
+    public static List<Hex> GetHexesInRange(Hex startNode, IMovable IMovable)
     {
         List<HexNode> openList = new List<HexNode>();
         List<HexNode> closedList = new List<HexNode>();
@@ -19,6 +19,7 @@ public class Range : MonoBehaviour
 
         HexNode currentNode = new HexNode(startNode);
         openList.Add(currentNode);
+        int safetyCounter = 0; // allows to leave the loop
         while (openList.Count > 0)
         {
             currentNode = openList[0];
@@ -49,6 +50,13 @@ public class Range : MonoBehaviour
                         resultList.Add(children[i].Node);
                     }
                 }
+            }
+
+            ++safetyCounter;
+            if (safetyCounter > 1000)
+            {
+                Debug.LogWarning("HexRange script needs to perform too many calculations, or got stuck while executing GetHexesInRange()!");
+                return resultList.ToList();
             }
         }
 

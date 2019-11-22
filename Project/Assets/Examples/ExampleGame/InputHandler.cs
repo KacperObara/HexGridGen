@@ -13,9 +13,26 @@ namespace HexGen
 
     public class InputHandler : MonoBehaviour
     {
-        public UnityEventHex HexClickAction;
+        public UnityEventHex HexLeftClickAction;
+        public UnityEventHex HexRightClickAction;
 
-        void OnMouseUp()
+        void Update()
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                Hex selectedHex = MouseInputToHex();
+                if (selectedHex != null)
+                    HexLeftClickAction.Invoke(selectedHex);
+            }
+            else if(Input.GetMouseButtonUp(1))
+            {
+                Hex selectedHex = MouseInputToHex();
+                if (selectedHex != null)
+                    HexRightClickAction.Invoke(selectedHex);
+            }
+        }
+
+        Hex MouseInputToHex()
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -23,10 +40,11 @@ namespace HexGen
             {
                 if (hit.transform.GetComponent<Generator>())
                 {
-                    Hex clickedHex = HexData.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
-                    HexClickAction.Invoke(clickedHex);
+                    Hex selectedHex = HexData.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
+                    return selectedHex;
                 }
             }
+            return null;
         }
     }
 }

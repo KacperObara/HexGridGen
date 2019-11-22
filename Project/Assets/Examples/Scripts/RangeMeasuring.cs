@@ -29,7 +29,7 @@ public class RangeMeasuring : MonoBehaviour
             {
                 Hex startHex = HexData.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
 
-                List<Hex> movementHexes = GetComponent<Range>().GetHexesInRange(startHex, new MovableTest(startHex, MovementRange));
+                List<Hex> movementHexes = HexRange.GetHexesInRange(startHex, new MovableTest(startHex, MovementRange));
 
                 for (int i = Selected.Count - 1; i >= 0; --i)
                 {
@@ -54,6 +54,7 @@ public class RangeMeasuring : MonoBehaviour
 
         public int Range { get => range; set => range = value; }
         public Hex OccupiedHex { get => occupiedHex; set => occupiedHex = value; }
+        public bool Moved { get; set; }
 
         public MovableTest(Hex occupiedHex, int range)
         {

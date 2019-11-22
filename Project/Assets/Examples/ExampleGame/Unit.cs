@@ -2,21 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 using HexGen;
+using UnityEditor;
 
 namespace HexGenExampleGame1
 {
     public class Unit : MonoBehaviour, IMovable
     {
-        public int range;
-        public Hex occupiedHex;
+        private BoardManager boardManager;
 
-        public int Range { get => range; set => range = value; }
-        public Hex OccupiedHex { get => occupiedHex; set => occupiedHex = value; }
+        [SerializeField]
+        private int range;
 
-        public void Initialize(Hex occupiedHex, int range)
+        public int Range { get { return range; } }
+        public Hex OccupiedHex { get; set; }
+        public Faction Faction { get; set; }
+        public bool Moved { get; set; }
+
+        void Awake()
+        {
+            boardManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BoardManager>();
+        }
+
+        public void Initialize(Hex occupiedHex, Faction faction)
         {
             this.OccupiedHex = occupiedHex;
-            this.Range = range;
+            this.Faction = faction;
+        }
+
+        void OnMouseUp()
+        {
+            boardManager.SelectedObject = this.gameObject;
+            if (boardManager.GetPlayerUnits().Contains(this))
+            {
+                MovementManager movementManager = boardManager.GetComponent<MovementManager>();
+                boardManager.SelectedHexes = HexRange.GetHexesInRange(this.OccupiedHex, this);
+                movementManager.DrawMovementRange();
+            }
         }
     }
 }

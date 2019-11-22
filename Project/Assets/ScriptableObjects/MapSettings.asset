@@ -18,8 +18,8 @@ MonoBehaviour:
   Octaves: 4
   Persistance: 0.5
   Lacunarity: 1.87
-  Seed: 0
-  ActualSeed: 119718
+  Seed: 145084
+  ActualSeed: 145084
   TerrainTypes:
   - TextureIndex: 0
     Name: Water
@@ -39,7 +39,7 @@ MonoBehaviour:
   - TextureIndex: 3
     Name: Mountains
     NoiseHeight: 0.85
-    MovementCost: 7
+    MovementCost: 4
     Passable: 1
   - TextureIndex: 4
     Name: Snow

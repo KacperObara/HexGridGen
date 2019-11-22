@@ -8,13 +8,33 @@ namespace HexGenExampleGame1
 {
     public class EnemySpawner : MonoBehaviour
     {
-        public UnitsManager unitsManager;
+        private BoardManager boardManager;
+
         public MapData mapData;
         public MapSettings mapSettings;
-        public GameObject EnemySpawnerPrefab;
 
         [Space]
         public int enemySpawners;
+
+        void Awake()
+        {
+            boardManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BoardManager>();
+        }
+
+        public void SpawnEnemies()
+        {
+            foreach (GameObject spawner in boardManager.EnemySpawners)
+            {
+                Unit enemyUnit = Instantiate(boardManager.EnemyPrefab, spawner.transform.position, Quaternion.identity).GetComponent<Unit>();
+                enemyUnit.Initialize(spawner.GetComponent<Entity>().OccupiedHex, Faction.Enemy);
+                boardManager.ExistingUnits.Add(enemyUnit);
+            }
+
+            foreach (Unit enemyUnit in boardManager.GetEnemyUnits())
+            {
+                enemyUnit.GetComponent<EnemyBehaviour>().PerformAction();
+            }
+        }
 
         public void CreateEnemySpawner()
         {
@@ -34,9 +54,9 @@ namespace HexGenExampleGame1
                 if (spawnerHexes.Contains(borderHexes[randomIndex]))
                     continue;
 
-                foreach (Unit unit in unitsManager.playerUnits)
+                foreach (Unit unit in boardManager.GetPlayerUnits())
                 {
-                    if (pathfinding.Search(borderHexes[randomIndex], unit.occupiedHex).Count > 0)
+                    if (pathfinding.Search(borderHexes[randomIndex], unit.OccupiedHex).Count > 0)
                     {
                         spawnerHexes.Add(borderHexes[randomIndex]);
                         break;
@@ -47,8 +67,9 @@ namespace HexGenExampleGame1
 
             foreach (Hex hex in spawnerHexes)
             {
-                GameObject spawner = Instantiate(EnemySpawnerPrefab, hex.WorldPos, Quaternion.identity);
-                unitsManager.spawnerHexes.Add(spawner);
+                GameObject spawner = Instantiate(boardManager.EnemySpawnerPrefab, hex.WorldPos, Quaternion.identity);
+                spawner.GetComponent<Entity>().OccupiedHex = hex;
+                boardManager.EnemySpawners.Add(spawner);
             }
         }
     }

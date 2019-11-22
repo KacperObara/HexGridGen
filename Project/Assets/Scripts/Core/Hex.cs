@@ -1,4 +1,5 @@
 ﻿using ExtensionMethods;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace HexGen
@@ -26,7 +27,7 @@ namespace HexGen
             this.WorldPos = worldPosition;
         }
 
-        public TerrainType TerrainType;
+        public TerrainType TerrainType { get; set; }
 
         private Hex[] neighbors = new Hex[6];
 
@@ -39,6 +40,11 @@ namespace HexGen
         {
             neighbors[(int)direction] = cell;
             cell.neighbors[(int)direction.GetOpposite()] = this;
+        }
+
+        public static float GetDistance(Hex firstHex, Hex secondHex)
+        {
+            return Vector3.Distance(firstHex.WorldPos, secondHex.WorldPos);
         }
     }
 }
