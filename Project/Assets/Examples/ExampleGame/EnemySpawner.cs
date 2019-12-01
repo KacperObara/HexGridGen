@@ -38,7 +38,7 @@ namespace HexGenExampleGame1
 
         public void CreateEnemySpawner()
         {
-            // Because we don't need to choose algorithm
+            // Because we don't need to choose algorithm //TO DO: dont be stupid and change it
             AStarPathfinding pathfinding = (AStarPathfinding)ScriptableObject.CreateInstance(typeof(AStarPathfinding));
 
             List<Hex> spawnerHexes = new List<Hex>();

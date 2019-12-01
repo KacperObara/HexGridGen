@@ -36,5 +36,22 @@ namespace HexGen
 
             this.TerrainTypes = settings.TerrainTypes;
         }
+
+        /// <summary>
+        /// Function returns world width in pixels.
+        /// </summary>
+        public float GetRealWorldWidth()
+        {
+            return WorldWidth * (HexData.InnerRadius * 2);
+        }
+
+        /// <summary>
+        /// Function returns world height in pixels.
+        /// </summary>
+        public float GetRealWorldHeight()
+        {
+            /// 0.75f because hexes "dovetail" at this height.
+            return WorldHeight * (HexData.OuterRadius * 2 * 0.75f);
+        }
     }
 }

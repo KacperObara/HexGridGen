@@ -32,6 +32,9 @@ namespace HexGen
                 hexes.Add(HexData.PixelToHex(coords, MapData.Hexes));
             }
 
+            if (!hexes.Contains(end))
+                hexes.Add(end);
+
             return hexes;
         }
     }

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b04db0e06031d41a4a070742395f6a, type: 3}
   m_Name: MapSettings
   m_EditorClassIdentifier: 
-  WorldWidth: 25
-  WorldHeight: 25
+  WorldWidth: 3
+  WorldHeight: 3
   Scale: 20
   Octaves: 4
   Persistance: 0.5
   Lacunarity: 1.87
-  Seed: 145084
-  ActualSeed: 145084
+  Seed: 0
+  ActualSeed: 993277
   TerrainTypes:
   - TextureIndex: 0
     Name: Water
@@ -39,7 +39,7 @@ MonoBehaviour:
   - TextureIndex: 3
     Name: Mountains
     NoiseHeight: 0.85
-    MovementCost: 4
+    MovementCost: 7
     Passable: 1
   - TextureIndex: 4
     Name: Snow

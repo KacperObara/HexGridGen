@@ -14,11 +14,13 @@ namespace HexGenExampleGame1
 
         [HideInInspector]
         public Hex targetHex;
-       // private Vector3 targetPosition = Vector3.zero;
         private Unit closestPlayerUnit;
 
         private readonly float speed = 15f;
-        private readonly float rotationSpeed = 10f;
+        private readonly float rotationSpeed = 15f;
+
+        private readonly Quaternion rightToForward = Quaternion.Euler(0f, -90f, 0f);
+        private Quaternion direction = Quaternion.identity;
 
         void Awake()
         {
@@ -32,6 +34,8 @@ namespace HexGenExampleGame1
             {
                 float step = speed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, targetHex.WorldPos, step);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, rightToForward * direction, Time.deltaTime * rotationSpeed);
 
                 //Quaternion _lookRotation = Quaternion.LookRotation(targetHex.WorldPos, Vector3.up);
                 //transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
@@ -51,9 +55,7 @@ namespace HexGenExampleGame1
                     if (path.Count >= 1)
                     {
                         targetHex = path[path.Count - 1];
-                        Quaternion rightToForward = Quaternion.Euler(0f, -90f, 0f);
-                        Quaternion r = Quaternion.LookRotation(targetHex.WorldPos - transform.position, Vector3.up);
-                        transform.rotation = rightToForward * r;
+                        direction = Quaternion.LookRotation(targetHex.WorldPos - transform.position, Vector3.up);
                     }
                     else
                     {

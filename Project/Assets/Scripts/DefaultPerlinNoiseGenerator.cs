@@ -43,7 +43,7 @@ namespace HexGen
                 settings.ActualSeed = seed;
             }
 
-            return Random.Range(0, 999999);
+            return Random.Range(0, 99999);
         }
 
         public override void Generate()
@@ -66,6 +66,7 @@ namespace HexGen
 
                     for (int i = 0; i < settings.Octaves; ++i)
                     {
+                        // they are the same
                         float xCoord = x / settings.Scale * frequency + offset * frequency;
                         float yCoord = y / settings.Scale * frequency + offset * frequency;
 

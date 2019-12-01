@@ -34,9 +34,12 @@ namespace HexGenExampleGame1
             boardManager.SelectedObject = this.gameObject;
             if (boardManager.GetPlayerUnits().Contains(this))
             {
-                MovementManager movementManager = boardManager.GetComponent<MovementManager>();
-                boardManager.SelectedHexes = HexRange.GetHexesInRange(this.OccupiedHex, this);
-                movementManager.DrawMovementRange();
+                if (Moved == false)
+                {
+                    MovementManager movementManager = boardManager.GetComponent<MovementManager>();
+                    boardManager.SelectedHexes = HexRange.GetHexesInRange(this.OccupiedHex, this);
+                    movementManager.DrawMovementRange();
+                }
             }
         }
     }

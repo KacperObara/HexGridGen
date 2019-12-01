@@ -22,11 +22,31 @@ namespace HexGenExampleGame1
             lineRenderer = GetComponent<LineRenderer>();
         }
 
-        void FixedUpdate()
+        void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && boardManager.IsSelectionPlayerUnit())
             {
                 shooting = !shooting;
+                lineRenderer.positionCount = 0;
+            }
+
+            if (shooting == true)
+            {
+                if (Input.GetMouseButtonUp(0))
+                {
+                    shooting = false;
+                    lineRenderer.positionCount = 0;
+
+                    List<Unit> enemyUnits = boardManager.GetEnemyUnits();
+                    for (int i = enemyUnits.Count - 1; i >= 0 ; --i)
+                    {
+                        if (hexLine.Contains(enemyUnits[i].OccupiedHex))
+                        {
+                            enemyUnits[i].gameObject.SetActive(false);
+                            boardManager.ExistingUnits.Remove(enemyUnits[i]);
+                        }
+                    }
+                }
             }
 
             if (shooting == true)
@@ -51,11 +71,14 @@ namespace HexGenExampleGame1
                     
                     hexLine = GetComponent<HexLine>().GetHexLine(boardManager.SelectedObject.GetComponent<Unit>().OccupiedHex, hitHex);
 
-                    lineRenderer.positionCount = hexLine.Count;
+                    List<Vector3> maxPositions = hexLine.Select(x => x.WorldPos).ToList();
+                    Vector3[] positions = new Vector3[6];
+                    positions = maxPositions.Take(6).ToArray();
+                    hexLine = hexLine.Take(6).ToList();
 
-                    Vector3[] positions = hexLine.Select(x => x.WorldPos).ToArray();
+                    lineRenderer.positionCount = positions.Length;
 
-                    for (int i = 0; i < hexLine.Count; i++)
+                    for (int i = 0; i < positions.Length; i++)
                     {
                         positions[i].y += 1f; // To avoid clipping
                     }
