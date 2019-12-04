@@ -23,6 +23,9 @@ namespace HexGenExampleGame1
             for (int i = 0; i < boardManager.SelectedHexes.Count; i++)
             {
                 drawnHexes.Add(Instantiate(boardManager.MovementPrefab, boardManager.SelectedHexes[i].WorldPos, Quaternion.identity));
+
+                if (boardManager.SelectedObject.GetComponent<Unit>().Shot == true)
+                    drawnHexes[i].GetComponent<MeshRenderer>().material.color = Color.red;
             }
         }
 

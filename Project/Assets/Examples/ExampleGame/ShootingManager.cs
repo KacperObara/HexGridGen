@@ -24,7 +24,7 @@ namespace HexGenExampleGame1
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space) && boardManager.IsSelectionPlayerUnit())
+            if (Input.GetKeyDown(KeyCode.Space) && boardManager.IsSelectionPlayerUnit() && boardManager.SelectedObject.GetComponent<Unit>().Shot == false)
             {
                 shooting = !shooting;
                 lineRenderer.positionCount = 0;
@@ -44,6 +44,7 @@ namespace HexGenExampleGame1
                         {
                             enemyUnits[i].gameObject.SetActive(false);
                             boardManager.ExistingUnits.Remove(enemyUnits[i]);
+                            boardManager.SelectedObject.GetComponent<Unit>().Shot = true;
                         }
                     }
                 }

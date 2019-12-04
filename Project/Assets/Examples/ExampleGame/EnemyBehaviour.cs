@@ -2,6 +2,7 @@
 using UnityEngine;
 using HexGen;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 namespace HexGenExampleGame1
 {
@@ -22,6 +23,8 @@ namespace HexGenExampleGame1
         private readonly Quaternion rightToForward = Quaternion.Euler(0f, -90f, 0f);
         private Quaternion direction = Quaternion.identity;
 
+        public bool Moving = false;
+
         void Awake()
         {
             boardManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BoardManager>();
@@ -32,13 +35,11 @@ namespace HexGenExampleGame1
         {
             if (path.Count > 0)
             {
+                Moving = true;
                 float step = speed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, targetHex.WorldPos, step);
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, rightToForward * direction, Time.deltaTime * rotationSpeed);
-
-                //Quaternion _lookRotation = Quaternion.LookRotation(targetHex.WorldPos, Vector3.up);
-                //transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);
 
                 if (Vector3.Distance(transform.position, targetHex.WorldPos) < 0.001f)
                 {
@@ -48,6 +49,11 @@ namespace HexGenExampleGame1
                         boardManager.ExistingUnits.Remove(unit);
                         closestPlayerUnit.gameObject.SetActive(false);
                         gameObject.SetActive(false);
+
+                        if (boardManager.GetPlayerUnits().Count == 0)
+                        {
+                            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameStateManager>().PopState();
+                        }
                     }
 
                     path.RemoveAt(path.Count - 1);
@@ -61,6 +67,7 @@ namespace HexGenExampleGame1
                     {
                         unit.OccupiedHex = targetHex;
                         unit.Moved = true;
+                        Moving = false;
                     }
                 }
             }

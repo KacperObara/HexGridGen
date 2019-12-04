@@ -26,6 +26,11 @@ namespace HexGenExampleGame1
         [SerializeField]
         private Generator generator;
 
+        private void Awake()
+        {
+            UpdateWorld();
+        }
+
         public void UpdateSliderText()
         {
             PersistanceText.text = $"Persistance: {PersistanceSlider.value}";

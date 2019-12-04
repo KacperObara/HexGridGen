@@ -17,6 +17,7 @@ namespace HexGenExampleGame1
         public Hex OccupiedHex { get; set; }
         public Faction Faction { get; set; }
         public bool Moved { get; set; }
+        public bool Shot { get; set; }
 
         void Awake()
         {
@@ -34,12 +35,16 @@ namespace HexGenExampleGame1
             boardManager.SelectedObject = this.gameObject;
             if (boardManager.GetPlayerUnits().Contains(this))
             {
+                // selects hex under the tank to show selection
+                boardManager.SelectedHexes.Clear();
+                boardManager.SelectedHexes.Add(this.OccupiedHex);
                 if (Moved == false)
                 {
-                    MovementManager movementManager = boardManager.GetComponent<MovementManager>();
                     boardManager.SelectedHexes = HexRange.GetHexesInRange(this.OccupiedHex, this);
-                    movementManager.DrawMovementRange();
+                    boardManager.SelectedHexes.Remove(this.OccupiedHex);
                 }
+                MovementManager movementManager = boardManager.GetComponent<MovementManager>();
+                movementManager.DrawMovementRange();
             }
         }
     }

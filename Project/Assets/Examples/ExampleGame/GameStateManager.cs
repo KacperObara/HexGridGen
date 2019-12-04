@@ -1,22 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameStateManager : MonoBehaviour
+namespace HexGenExampleGame1
 {
-    [SerializeField]
-    private List<GameObject> states;
-
-    public void PushState(GameObject gameObject)
+    public class GameStateManager : MonoBehaviour
     {
-        states.Add(gameObject);
-    }
+        [SerializeField]
+        private List<GameObject> states;
 
-    public void PopState()
-    {
-        int lastIndex = states.Count - 1;
-        states[lastIndex].SetActive(false);
-        states.RemoveAt(lastIndex);
-        states[lastIndex - 1].SetActive(true);
+        private BoardManager boardManager;
+
+        void Awake()
+        {
+            boardManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BoardManager>();
+        }
+
+        public void PushState(GameObject gameObject)
+        {
+            states.Add(gameObject);
+        }
+
+        public void PopState()
+        {
+            int lastIndex = states.Count - 1;
+            states[lastIndex].SetActive(false);
+            states.RemoveAt(lastIndex);
+            states[lastIndex - 1].SetActive(true);
+        }
+
+        public void StartNewGame()
+        {
+            SceneManager.LoadScene("ExampleGame");
+        }
     }
 }
