@@ -2221,7 +2221,7 @@ GameObject:
   - component: {fileID: 481619450}
   - component: {fileID: 481619451}
   m_Layer: 5
-  m_Name: Octaves
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6342,7 +6342,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 484.7, y: 30}
+  m_SizeDelta: {x: 532.9, y: 29.5}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1239394857
 MonoBehaviour:
@@ -6364,7 +6364,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Place your units on the board
+  m_text: 'Place your units on the board (left mouse click)
 
 '
   m_isRightToLeft: 0
@@ -6435,10 +6435,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 15, w: 0}
   m_textInfo:
     textComponent: {fileID: 1239394857}
-    characterCount: 30
+    characterCount: 49
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 6
+    spaceCount: 9
+    wordCount: 9
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -8412,7 +8412,6 @@ GameObject:
   - component: {fileID: 1574345566}
   - component: {fileID: 1574345565}
   - component: {fileID: 1574345564}
-  - component: {fileID: 1574345563}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -8440,31 +8439,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 130.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1574345563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574345561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0eb3babdb1fcc045813ded605a0b813, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WidthField: {fileID: 0}
-  HeightField: {fileID: 0}
-  ScaleField: {fileID: 0}
-  OctavesField: {fileID: 0}
-  PersistanceSlider: {fileID: 0}
-  PersistanceText: {fileID: 0}
-  LacunarityField: {fileID: 0}
-  SeedField: {fileID: 0}
-  AutoGenerateToggle: {fileID: 0}
-  GenerateButton: {fileID: 0}
-  AcceptButton: {fileID: 492012455}
-  mapSettings: {fileID: 11400000, guid: 1444565f3653e8f44ba650731fd834b7, type: 2}
-  generator: {fileID: 1640954245}
 --- !u!114 &1574345564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10410,6 +10384,7 @@ GameObject:
   - component: {fileID: 2049477437}
   - component: {fileID: 2049477436}
   - component: {fileID: 2049477435}
+  - component: {fileID: 2049477438}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -10498,6 +10473,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2049477438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049477433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a389b1d9f297b24f95d43229128e0eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawner: {fileID: 1343149055}
+  unitsLeftText: {fileID: 1551129921}
 --- !u!1001 &7247040085590051709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10520,6 +10509,11 @@ PrefabInstance:
       propertyPath: PlayerTanks
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7247040086394689666, guid: 2b95b4367edec654bbbaabe6694b359c,
+        type: 3}
+      propertyPath: spawnerView
+      value: 
+      objectReference: {fileID: 2049477438}
     - target: {fileID: 3435214836220065455, guid: 2b95b4367edec654bbbaabe6694b359c,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -45,7 +45,6 @@ namespace HexGenExampleGame1
         public void UpdateWorld()
         {
             /// Values are restricted in order to avoid float frequency in DefaultPerlinNoiseGenerator from overflow (NaN)
-
             int WorldWidth = Convert.ToInt32(WidthField.text);
             if (WorldWidth > 150)
                 WorldWidth = 150;

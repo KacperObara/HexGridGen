@@ -8,12 +8,17 @@ namespace HexGenExampleGame1
     public class PlayerSpawner : MonoBehaviour
     {
         private BoardManager boardManager;
+        [SerializeField]
+        private SpawnerView spawnerView;
 
         public int PlayerTanks;
+        [HideInInspector]
+        public int PlayerTanksLeft;
 
         void Awake()
         {
             boardManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BoardManager>();
+            PlayerTanksLeft = PlayerTanks;
         }
 
         public void OnHexClick(Hex hex)
@@ -28,6 +33,8 @@ namespace HexGenExampleGame1
                     }
                 }
                 SpawnTank(hex);
+                --PlayerTanksLeft;
+                spawnerView.UpdateUnitsLeft();
             }
         }
 

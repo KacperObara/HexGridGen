@@ -16,10 +16,13 @@ namespace HexGenExampleGame1
         private bool shooting = false;
         private int interval = 3;
 
+        private Unit shooter;
+
         void Awake()
         {
             boardManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<BoardManager>();
             lineRenderer = GetComponent<LineRenderer>();
+            lineRenderer.positionCount = 0;
         }
 
         void Update()
@@ -28,9 +31,11 @@ namespace HexGenExampleGame1
             {
                 shooting = !shooting;
                 lineRenderer.positionCount = 0;
+
+                shooter = boardManager.SelectedObject.GetComponent<Unit>();
             }
 
-            if (shooting == true)
+            if (shooting == true && shooter.Shot == false)
             {
                 if (Input.GetMouseButtonUp(0))
                 {
@@ -44,7 +49,7 @@ namespace HexGenExampleGame1
                         {
                             enemyUnits[i].gameObject.SetActive(false);
                             boardManager.ExistingUnits.Remove(enemyUnits[i]);
-                            boardManager.SelectedObject.GetComponent<Unit>().Shot = true;
+                            shooter.Shot = true;
                         }
                     }
                 }
