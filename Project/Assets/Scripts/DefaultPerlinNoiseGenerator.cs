@@ -66,7 +66,6 @@ namespace HexGen
 
                     for (int i = 0; i < settings.Octaves; ++i)
                     {
-                        // they are the same
                         float xCoord = x / settings.Scale * frequency + offset * frequency;
                         float yCoord = y / settings.Scale * frequency + offset * frequency;
 

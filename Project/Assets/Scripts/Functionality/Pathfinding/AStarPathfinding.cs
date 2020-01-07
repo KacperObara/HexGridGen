@@ -19,7 +19,7 @@ namespace HexGen
 
             openList.Add(new HexNode(startNode));
 
-            // Loop until you no more nodes in graph
+            // Loop until you have no more nodes in graph
             while (openList.Count > 0)
             {
                 HexNode currentNode = GetLowestDist(openList, startNode, endNode);
@@ -42,17 +42,8 @@ namespace HexGen
                     return path;
                 }
 
-                // Generate children
-                List<HexNode> children = new List<HexNode>();
-                for (int i = 0; i < HexData.HexSides; ++i)
-                {
-                    Hex child = currentNode.Node.GetNeighbor((HexDirection)i);
-
-                    if (child != null)
-                        if (child.TerrainType.Passable == true)
-                            children.Add(new HexNode(child, currentNode));
-                }
-
+                List<HexNode> children = GenerateChildren(currentNode);
+                
                 // Loop through children
                 for (int i = 0; i < children.Count; ++i)
                 {
@@ -70,6 +61,22 @@ namespace HexGen
             }
 
             return new List<Hex>();
+        }
+
+        private List<HexNode> GenerateChildren(HexNode currentNode)
+        {
+            List<HexNode> children = new List<HexNode>();
+
+            for (int i = 0; i < HexData.HexSides; ++i)
+            {
+                Hex child = currentNode.Node.GetNeighbor((HexDirection)i);
+
+                if (child != null)
+                    if (child.TerrainType.Passable == true)
+                        children.Add(new HexNode(child, currentNode));
+            }
+
+            return children;
         }
 
         private HexNode GetLowestDist(List<HexNode> openList, Hex startNode, Hex endNode)
