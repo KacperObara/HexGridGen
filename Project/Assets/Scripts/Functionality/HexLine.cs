@@ -24,14 +24,17 @@ namespace HexGen
         {
             List<Hex> hexes = new List<Hex>();
 
+            // Sprawdź liczbę heksagonów między punktem startowym i końcowym
             int length = HexData.GetDistance(start, end, false);
 
             for (int i = 0; i < length; i++)
             {
                 Vector3 coords = CubeLerp(start, end, 1.0f / length * i);
+                // Przekonwertuj współrzędne w pikselach na współrzędne heksagonu
                 hexes.Add(HexData.PixelToHex(coords, MapData.Hexes));
             }
 
+            // TODO: zamiast tego N+1?
             if (!hexes.Contains(end))
                 hexes.Add(end);
 

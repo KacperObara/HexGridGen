@@ -11,6 +11,9 @@ namespace HexGenExampleGame1
         private BoardManager boardManager;
         private Unit unit;
 
+        [SerializeField]
+        private GameObject explosionPrefab;
+
         private List<Hex> path = new List<Hex>();
 
         [HideInInspector]
@@ -47,6 +50,8 @@ namespace HexGenExampleGame1
                     {
                         boardManager.ExistingUnits.Remove(closestPlayerUnit);
                         boardManager.ExistingUnits.Remove(unit);
+                        ParticleSystem explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+                        explosion.Play();
                         closestPlayerUnit.gameObject.SetActive(false);
                         gameObject.SetActive(false);
 

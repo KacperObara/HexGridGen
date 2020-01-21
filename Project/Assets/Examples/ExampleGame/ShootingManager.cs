@@ -49,6 +49,7 @@ namespace HexGenExampleGame1
                         {
                             enemyUnits[i].gameObject.SetActive(false);
                             boardManager.ExistingUnits.Remove(enemyUnits[i]);
+                            ScoreView.Score += 50;
                             shooter.Shot = true;
                         }
                     }
@@ -73,10 +74,13 @@ namespace HexGenExampleGame1
             {
                 if (hit.transform.GetComponent<Generator>())
                 {
+                    // Which hex was clicked
                     Hex hitHex = HexData.PixelToHex(hit.point, hit.transform.GetComponent<Generator>().MapData.Hexes);
                     
+                    // Line of hexes from selected tank to hitHex
                     hexLine = GetComponent<HexLine>().GetHexLine(boardManager.SelectedObject.GetComponent<Unit>().OccupiedHex, hitHex);
 
+                    // Restricting length of the line, so tanks have certain shooting range
                     List<Vector3> maxPositions = hexLine.Select(x => x.WorldPos).ToList();
                     Vector3[] positions = new Vector3[6];
                     positions = maxPositions.Take(6).ToArray();
@@ -86,9 +90,10 @@ namespace HexGenExampleGame1
 
                     for (int i = 0; i < positions.Length; i++)
                     {
-                        positions[i].y += 1f; // To avoid clipping
+                        positions[i].y += 1f; // To avoid clipping into the ground
                     }
 
+                    // Draws the line
                     lineRenderer.SetPositions(positions);
                 }
             }

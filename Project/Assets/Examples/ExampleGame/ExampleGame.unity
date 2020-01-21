@@ -201,8 +201,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1927905314}
   m_HandleRect: {fileID: 1927905313}
   m_Direction: 2
-  m_Value: 0.9995243
-  m_Size: 0.603994
+  m_Value: 0.9995245
+  m_Size: 0.6039941
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -572,6 +572,7 @@ GameObject:
   - component: {fileID: 59872535}
   - component: {fileID: 59872537}
   - component: {fileID: 59872536}
+  - component: {fileID: 59872538}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -718,6 +719,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59872534}
   m_CullTransparentMesh: 0
+--- !u!114 &59872538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 59872534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315a6ed71a61261428226633448b423e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &80914849
 GameObject:
   m_ObjectHideFlags: 0

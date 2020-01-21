@@ -45,7 +45,9 @@ namespace HexGenExampleGame1
         public void UpdateWorld()
         {
             /// Values are restricted in order to avoid float frequency in DefaultPerlinNoiseGenerator from overflow (NaN)
-            int WorldWidth = Convert.ToInt32(WidthField.text);
+            int WorldWidth = 1;
+            bool isParsable = Int32.TryParse(WidthField.text, out WorldWidth);
+
             if (WorldWidth > 150)
                 WorldWidth = 150;
             if (WorldWidth < 1)
@@ -53,7 +55,10 @@ namespace HexGenExampleGame1
             mapSettings.WorldWidth = WorldWidth;
             WidthField.text = WorldWidth.ToString();
 
-            int WorldHeight = Convert.ToInt32(HeightField.text);
+
+            int WorldHeight = 1;
+            isParsable = Int32.TryParse(HeightField.text, out WorldHeight);
+
             if (WorldHeight > 150)
                 WorldHeight = 150;
             if (WorldHeight < 1)
@@ -74,7 +79,10 @@ namespace HexGenExampleGame1
                 ScaleField.text = Scale.ToString();
             }
 
-            int octaves = Convert.ToInt32(OctavesField.text);
+
+            int octaves = 1;
+            isParsable = Int32.TryParse(OctavesField.text, out octaves);
+
             if (octaves > 30)
                 octaves = 30;
             if (octaves < 1)
@@ -97,7 +105,8 @@ namespace HexGenExampleGame1
                 LacunarityField.text = lacunarity.ToString();
             }
 
-            mapSettings.Seed = Convert.ToInt32(SeedField.text);
+
+            isParsable = Int32.TryParse(SeedField.text, out mapSettings.Seed);
 
             generator.Generate();
         }

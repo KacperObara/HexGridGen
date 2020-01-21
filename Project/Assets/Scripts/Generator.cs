@@ -58,7 +58,7 @@ namespace HexGen
 
             sw.Stop();
 
-            UnityEngine.Debug.Log(sw.Elapsed.TotalMilliseconds);
+            UnityEngine.Debug.Log("Czas generacji: " + sw.Elapsed.TotalMilliseconds);
         }
 
         public void UpdateMesh()

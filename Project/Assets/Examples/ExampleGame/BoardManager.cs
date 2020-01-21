@@ -32,7 +32,7 @@ namespace HexGenExampleGame1
 
         public bool IsSelectionPlayerUnit()
         {
-            if (SelectedObject.GetComponent<Unit>() != null)
+            if (SelectedObject == null || SelectedObject.GetComponent<Unit>() != null)
             {
                 return GetPlayerUnits().Contains(SelectedObject.GetComponent<Unit>());
             }

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98b04db0e06031d41a4a070742395f6a, type: 3}
   m_Name: MapSettings
   m_EditorClassIdentifier: 
-  WorldWidth: 3
-  WorldHeight: 3
+  WorldWidth: 25
+  WorldHeight: 25
   Scale: 20
   Octaves: 4
   Persistance: 0.5
   Lacunarity: 1.87
   Seed: 0
-  ActualSeed: 993277
+  ActualSeed: 699337
   TerrainTypes:
   - TextureIndex: 0
     Name: Water

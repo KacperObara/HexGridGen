@@ -38,6 +38,9 @@ namespace HexGenExampleGame1
 
         public void CreateEnemySpawner()
         {
+            if (boardManager.GetPlayerUnits().Count == 0)
+                return;
+
             // Because we don't need to choose algorithm //TO DO: dont be stupid and change it
             AStarPathfinding pathfinding = (AStarPathfinding)ScriptableObject.CreateInstance(typeof(AStarPathfinding));
 

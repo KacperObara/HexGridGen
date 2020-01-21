@@ -24,6 +24,9 @@ namespace HexGenExampleGame1
 
         public void PopState()
         {
+            if (boardManager.ExistingUnits.Count == 0 && states.Count <= 3)
+                return;
+
             int lastIndex = states.Count - 1;
             states[lastIndex].SetActive(false);
             states.RemoveAt(lastIndex);
