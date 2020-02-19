@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Converters;
 using UnityEditor;
-using System;
 
 namespace HexGen
 {

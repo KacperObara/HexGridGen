@@ -12,7 +12,8 @@ namespace HexGen
         private MapData mapData;
         private Mesh mesh;
         private MeshCollider meshCollider;
-        private ShaderManager shaderManager;
+
+        private GridTexture gridTexture;
 
         private List<Vector3> vertices;
         private List<int> triangles;
@@ -24,7 +25,7 @@ namespace HexGen
             this.mapData = generator.MapData;
             this.mapSettings = generator.MapSettings;
             this.meshCollider = generator.GetComponent<MeshCollider>();
-            this.shaderManager = generator.shaderManager;
+            this.gridTexture = generator.GridTexture;
 
             vertices = new List<Vector3>();
             triangles = new List<int>();
@@ -111,8 +112,8 @@ namespace HexGen
 
         private void SetUVs(int index)
         {
-            int TexCount = shaderManager.TexturesInARow;
-            int TexSize = shaderManager.SingleTextureSize;
+            int TexCount = gridTexture.HexTextureAtlas.TexturesInARow;
+            int TexSize = gridTexture.HexTextureAtlas.SingleTextureSize;
 
             int indexX = index % TexCount;
             int indexY = index / TexCount;
@@ -139,7 +140,7 @@ namespace HexGen
 
         private Vector2 ConvertPixelsToUVCoords(int x, int y)
         {
-            return new Vector2((float)x / shaderManager.AtlasSize, (float)y / shaderManager.AtlasSize);
+            return new Vector2((float)x / gridTexture.HexTextureAtlas.AtlasSize, (float)y / gridTexture.HexTextureAtlas.AtlasSize);
         }
     }
 }

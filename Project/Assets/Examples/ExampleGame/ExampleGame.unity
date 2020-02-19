@@ -201,8 +201,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1927905314}
   m_HandleRect: {fileID: 1927905313}
   m_Direction: 2
-  m_Value: 0.9995245
-  m_Size: 0.6039941
+  m_Value: 0.9995243
+  m_Size: 0.603994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7674,6 +7674,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1432226570 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3593920221399879866, guid: 658bb25a9eaf10340a90b433ac91834b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2041111729}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa32eea65598b89498ecb3574aa528ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1459623375
 GameObject:
   m_ObjectHideFlags: 0
@@ -10285,17 +10297,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid
       objectReference: {fileID: 0}
-    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: shaderManager
-      value: 
-      objectReference: {fileID: 2041111733}
-    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
-        type: 3}
-      propertyPath: SaveFile
-      value: 
-      objectReference: {fileID: 11400000, guid: 72806c7cf1e78cd418e68a1dc5bb63cd,
-        type: 2}
     - target: {fileID: 5291780236302377668, guid: 658bb25a9eaf10340a90b433ac91834b,
         type: 3}
       propertyPath: m_Mesh
@@ -10361,6 +10362,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: shaderManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: SaveFile
+      value: 
+      objectReference: {fileID: 11400000, guid: 72806c7cf1e78cd418e68a1dc5bb63cd,
+        type: 2}
+    - target: {fileID: 5291780236302377665, guid: 658bb25a9eaf10340a90b433ac91834b,
+        type: 3}
+      propertyPath: GridTexture
+      value: 
+      objectReference: {fileID: 1432226570}
     - target: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
         type: 3}
       propertyPath: SingleTextureSize
@@ -10373,18 +10390,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 740b862bf93aa5a4790fdef72b1d43cc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 658bb25a9eaf10340a90b433ac91834b, type: 3}
---- !u!114 &2041111733 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 470171847350359387, guid: 658bb25a9eaf10340a90b433ac91834b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2041111729}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d02d91ab2640322438cd37ea35ea19f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2049477433
 GameObject:
   m_ObjectHideFlags: 0

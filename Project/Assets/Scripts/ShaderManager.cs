@@ -7,10 +7,24 @@ namespace HexGen
     public class ShaderManager : MonoBehaviour
     {
         public Texture Texture;
-        public int SingleTextureSize;
         
-        public int AtlasSize;
-        public int TexturesInARow;
+        [SerializeField]
+        private int atlasSize;
+        public int AtlasSize
+        {
+            get { return atlasSize; }
+            set { atlasSize = value; }
+        }
+
+        [SerializeField]
+        private int texturesInARow;
+        public int TexturesInARow
+        {
+            get { return texturesInARow; }
+            set { texturesInARow = value; }
+        }
+
+        public int SingleTextureSize { get; private set; }
 
         [Space(10)]
         public Shader Shader;
@@ -21,6 +35,8 @@ namespace HexGen
             Shader.SetGlobalTexture("Texture2D_201B563B", Texture);
             Material.SetTexture("Texture2D_201B563B", Texture);
 
+            SingleTextureSize = AtlasSize / TexturesInARow;
+
             if (Texture.width != Texture.height)
             {
                 Debug.LogWarning("Texture Width and Height are different, textures won't be applied correctly");
@@ -30,9 +46,6 @@ namespace HexGen
             {
                 Debug.LogWarning("Single Texture Size is wrong, textures won't be applied correctly");
             }
-
-            AtlasSize = Texture.width;
-            TexturesInARow = AtlasSize / SingleTextureSize;
         }
     }
 }

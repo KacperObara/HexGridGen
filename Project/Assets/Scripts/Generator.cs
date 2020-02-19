@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace HexGen
 {
@@ -15,7 +11,7 @@ namespace HexGen
         [SerializeField]
         private MeshGenerator meshGenerator;
 
-        public ShaderManager shaderManager;
+        public GridTexture GridTexture;
 
         public MapData MapData;
         public MapSettings MapSettings;
@@ -23,30 +19,20 @@ namespace HexGen
         [Space]
         public SaveFile SaveFile;
 
+        private void OnValidate()
+        {
+            if (GridTexture == null)
+            {
+                GridTexture = GetComponent<GridTexture>();
+                Debug.Log("GridTexture in Generator script was null, loading automatically");
+            }
 
-        //#if UNITY_EDITOR
-        //        void Start()
-        //        {
-        //            DontDestroyOnLoad(this.gameObject);
-        //            EditorApplication.playModeStateChanged += OnEnteringEditor;
-        //        }
-
-        //        private void OnEnteringEditor(PlayModeStateChange state)
-        //        {
-        //            if (state == PlayModeStateChange.EnteredEditMode)
-        //            {
-        //                Generator g = this;
-        //                g.GetComponent<MeshCollider>();
-        //                UpdateMesh();
-        //            }
-        //        }
-        //#endif
+            if (gridGenerator == null || noiseGenerator == null || meshGenerator == null || MapData == null || MapSettings == null)
+                Debug.LogError("Generator script misses one or more references. Drag them in the inspector tab");
+        }
 
         public void Generate()
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-
             gridGenerator.Initialize(this);
             noiseGenerator.Initialize(this);
             meshGenerator.Initialize(this);
@@ -55,10 +41,6 @@ namespace HexGen
             noiseGenerator.Generate();
 
             UpdateMesh();
-
-            sw.Stop();
-
-            UnityEngine.Debug.Log("Czas generacji: " + sw.Elapsed.TotalMilliseconds);
         }
 
         public void UpdateMesh()
@@ -71,7 +53,7 @@ namespace HexGen
         {
             if (SaveFile == null)
             {
-                UnityEngine.Debug.LogWarning("There is no save file to load");
+                Debug.LogWarning("There is no save file to load");
                 return;
             }
 

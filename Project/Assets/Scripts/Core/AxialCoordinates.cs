@@ -1,4 +1,5 @@
-﻿namespace HexGen
+﻿
+namespace HexGen
 {
     public struct AxialCoordinates
     {

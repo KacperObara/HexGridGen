@@ -1,5 +1,4 @@
 ﻿using ExtensionMethods;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace HexGen
