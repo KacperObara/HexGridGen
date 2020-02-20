@@ -31,5 +31,9 @@ TODO:
 
 ![](Images/ExampleSettings.png)
 
+![](Images/Example3.png)
+
+![](Images/Example4.png)
+
 
 Any feedback would be greatly appreciated. Thank you.
